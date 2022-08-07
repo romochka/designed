@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<App>
+   <Schmapp>
+      <screens>
+         <About>
+            <Layout>
+               <HeaderStatic />
+               <MainStatic>
+                 <Content />
+               </MainStatic>
+             </Layout>
+         </About>
+      </screens>
+   </Schmapp>
+   <Components>
+      <Layout>
+         <OuterBox>
+            <NavBox>
+               <InnerBox>
+                  <NavigationMinimal>
+                     <Nav>
+                        <StyledLink>
+                           <Icon />
+                           <Weekday />
+                           <MonthDay />
+                        </StyledLink>
+                     </Nav>
+                  </NavigationMinimal>
+               </InnerBox>
+            </NavBox>
+            <MainBox>
+               {children}
+               <Footer></Footer>
+            </MainBox>
+         </OuterBox>
+      </Layout>
+   </Components>
+</App>
