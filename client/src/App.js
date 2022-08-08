@@ -1,48 +1,16 @@
-import { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { Locales } from "./components/locales";
-import { ThemeProvider } from "./components/theme";
-import { routes } from "./routes";
+import { LocalesProvider } from "./providers/locales";
+import {RoutesProvider} from "./providers/routes";
+import { ThemeProvider } from "./providers/theme";
 
-const ScrollToTop = () => {
-   const { pathname } = useLocation();
-
-   useEffect(() => {
-      window.scrollTo(0, 0);
-   }, [pathname]);
-
-   return null;
-};
-
-const AppProvider = ({ children }) => {
+const App = ({ children }) => {
    return (
-      <Locales>
+      <LocalesProvider>
          <ThemeProvider>
-            {children}
+            <RoutesProvider>{children}</RoutesProvider>
          </ThemeProvider>
-      </Locales>
+      </LocalesProvider>
    )
 };
-
-const AppRouter = () => {
-
-   return (
-      <BrowserRouter>
-         <ScrollToTop />
-         <Routes>
-            {routes.map(([path, Element, props = {}], i) => (
-               <Route key={i} path={path} element={<Element {...props} />} />
-            ))}
-         </Routes>
-      </BrowserRouter>
-   );
-};
-
-const App = () => (
-   <AppProvider>
-      <AppRouter />
-   </AppProvider>
-)
 
 
 export default App;

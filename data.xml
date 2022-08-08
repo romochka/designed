@@ -1,38 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<App>
-   <Schmapp>
-      <screens>
-         <About>
-            <Layout>
-               <HeaderStatic />
-               <MainStatic>
-                 <Content />
-               </MainStatic>
-             </Layout>
-         </About>
-      </screens>
-   </Schmapp>
-   <Components>
-      <Layout>
-         <OuterBox>
-            <NavBox>
-               <InnerBox>
-                  <NavigationMinimal>
-                     <Nav>
-                        <StyledLink>
-                           <Icon />
-                           <Weekday />
-                           <MonthDay />
-                        </StyledLink>
-                     </Nav>
-                  </NavigationMinimal>
-               </InnerBox>
-            </NavBox>
-            <MainBox>
-               {children}
-               <Footer></Footer>
-            </MainBox>
-         </OuterBox>
-      </Layout>
-   </Components>
-</App>
+<app version="0.0.1">
+   Мы не можем напрямую соединить фигму и vs code, но мы можем вычленить логику и держать ее посередине. Этот xml-подобный файл - первая попытка описать логику ui в формате, читаемом и машиной и человеком. Он должен служить живительным ИСТОЧНИКОМ ПРАВДЫ.
+   <components>
+      раздел компонентов
+      <Component>
+         описание
+         <link figma="ссылка на файл в фигме на конкретную node" github="ссылка на репо на компонент в .tsx" />
+         <props>
+            перечисление ну, э... props, это же очевидно
+            <prop1 value="a|b|c">this prop has a value!</prop1>
+            <prop2>this is a boolean prop</prop2>
+         </props>
+         <variant prop1="a">инфа по варианту</variant>
+         <variant prop1="b" prop2="">
+            здесь prop2 = true
+         </variant>
+         <variant prop1="b">
+            все сочетания вариантов не нужно перечислять, нужно только те, где
+            есть что рассказать, а остальные очевидны из списка props
+         </variant>
+      </Component>
+      <Button>
+         ну кнопка и кнопка, подумаешь
+         <link figma="https://www.figma.com/file/vs6xbEX02dAWaktT84/page/node-id=3408" github="" />
+         <props>
+            <size value="sm|md|lg|xl" />
+            <icon name= />
+         </props>
+         <variant size="md" icon="exclamation mark">
+            внимание, эта кнопка всегда желтая
+         </variant>
+         <variant size="xl" icon="false">
+            у кнопки xl иконки не бывает
+         </variant>
+      </Button>
+      <Gallery>
+         коллаж из пяти|четырех|трех картинок
+         <link figma="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=2%3A11" github="" />
+         <props>
+            <cols value="5|4|3" />
+         </props>
+         пропорции в проценты: колонка/сумма * 100
+         <variant cols="5">пропорции ширины [9, 6, 4, 2, 1]</variant>
+         <variant cols="4">пропорции ширины [7, 6, 4, 2]</variant>
+         <variant cols="3">пропорции ширины [7, 5, 2]</variant>
+      </Gallery>
+   </components>
+   <screens>
+      раздел экранов (страниц)
+      <Story>
+         сюжет
+         <Gallery>если пришло меньше трех картинок, прячем</Gallery>
+         ...
+      </Story>
+   </screens>
+</app>

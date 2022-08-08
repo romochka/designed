@@ -23,7 +23,7 @@ export const FormattedMessage = ({ id }) => (
 
 export const intl = createIntl({ locale, messages: locales.get(locale) })
 
-export const Locales = ({ children }) => (
+export const LocalesProvider = ({ children }) => (
   <RawIntlProvider value={intl}>
     {children}
   </RawIntlProvider>

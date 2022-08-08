@@ -1,5 +1,11 @@
 {
    "workbench.preferredLightColorTheme": "Solarized Light",
-   "workbench.colorTheme": "Solarized Light",
-   "workbench.preferredDarkColorTheme": "Monokai Dimmed"
+   "workbench.colorTheme": "Monokai Dimmed",
+   "workbench.preferredDarkColorTheme": "Monokai Dimmed",
+   "[html]": {
+      "editor.defaultFormatter": "vscode.html-language-features"
+   },
+   "[xml]": {
+      "editor.defaultFormatter": "redhat.vscode-xml"
+   }
 }
