@@ -1,0 +1,24 @@
+<app>
+   <components>
+      <Today>
+         <device phone=>
+            <figma href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A17" />
+         </device>
+         <device tablet landscape>
+            <figma href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A22" />
+         </device>
+         <code href="file://./client/src/components/today/index.js" />
+      </Today>
+   </components>
+
+   <screens>
+      <Home>
+         <device phone=>
+            <figma href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A11" />
+         </device>
+         <code href="file://./client/src/screens/Home/index.js" />
+         <Today></Today>
+      </Home>
+
+   </screens>
+</app>
