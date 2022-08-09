@@ -1,5 +1,5 @@
 <app>
-   <tokens prefix="%device%.%theme%">
+   <tokens prefix="tokens.%device%.%theme%">
       e. g. tokens.phone.light.*
    </tokens>
    <components>
