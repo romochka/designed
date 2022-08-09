@@ -1,23 +1,79 @@
 <app>
    <components>
+
+      <Button>
+         <variant.action>
+            <tokens.compound.button.action />
+         </variant.action>
+         <variant.link>
+            <tokens.compound.button.link />
+         </variant.link>
+      </Button>
+
+      <More>
+         <tokens.compound.container.more />
+         <Button.more />
+      </More>
+
       <Today>
-         <device phone=>
-            <figma href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A17" />
-         </device>
-         <device tablet landscape>
-            <figma href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A22" />
-         </device>
-         <code href="file://./client/src/components/today/index.js" />
+         <source>
+            <figma device="phone" href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A17" />
+            <figma device="tablet" href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=30%3A30" />
+            <code href="file://./client/src/components/today/index.js" />
+         </source>
       </Today>
+
+      <Story>
+         <variant.important />
+      </Story>
+
+      <Stories>
+         <source>
+            <data query="getStories.graphql" />
+         </source>
+
+         <variant.important>
+            <source>
+               <data query="getStoriesImportant.graphql" />
+            </source>
+         </variant.important>
+
+         <iterator>
+            <Story />
+            <variant.important>
+               <Story.important />
+            </variant.important>
+         </iterator>
+
+         <More />
+
+      </Stories>
+
+      <Topics>
+         <iterator>
+            <Stories />
+         </iterator>
+         <variant.permanent></variant.permanent>
+      </Topics>
+
    </components>
 
    <screens>
       <Home>
-         <device phone=>
-            <figma href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A11" />
-         </device>
-         <code href="file://./client/src/screens/Home/index.js" />
-         <Today></Today>
+         <source>
+            <figma device="phone" href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A11" />
+            <figma device="tablet" href="https://www.figma.com/file/Pwio7KAGahn0y2LGAKt93R/export?node-id=27%3A12" />
+            <code href="file://./client/src/screens/Home/index.js" />
+         </source>
+
+         <Today />
+
+         <Stories.important>
+            important stories outside of a topic, usually just one
+         </Stories.important>
+
+         <Topics />
+
       </Home>
 
    </screens>
