@@ -1,4 +1,7 @@
 <app>
+   <tokens prefix="%device%.%theme%">
+      e. g. tokens.phone.light.*
+   </tokens>
    <components>
 
       <Button>
