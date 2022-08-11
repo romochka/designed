@@ -2,12 +2,17 @@ import { readFile, writeFile } from "fs/promises";
 import Baobab from "baobab";
 import { select } from "./om/select.js";
 import { om } from "./om/index.js";
+import { monkeys } from "./om/data.js";
 
 const rawTokens = await readFile("./tokens.json", { encoding: "utf-8" })
    .then(res => JSON.parse(res))
    .then(node => om(node));
 
-const tree = new Baobab(rawTokens);
+const tree = new Baobab(rawTokens, { lazyMonkeys: true });
+
+monkeys(tree);
+
+console.log(tree.get());
 
 function extract(tokenName) {
    const [device, scheme, ...rest] = tokenName.split(".");
@@ -18,7 +23,7 @@ const tokenName = `phone.light.button.action.default`;
 
 console.log(`select ${tokenName}`);
 const value = select(tree, extract(tokenName));
-console.log(JSON.stringify(value, null, 2));
+// console.log(JSON.stringify(value, null, 2));
 
 
 const dummy = {
@@ -35,9 +40,9 @@ dummy.top.second[8] = { eight: 8 };
 
 const dummyTree = new Baobab(dummy.top.second);
 
-const dummyValue = select(dummyTree, "7");
+// const dummyValue = select(dummyTree, "7");
 
-console.log(JSON.stringify(dummyValue, null, 2));
+// console.log(JSON.stringify(dummyValue, null, 2));
 
 // console.log(`from tree:`, dummyTree.select("top", "second", 4).get());
 
@@ -47,7 +52,7 @@ console.log(JSON.stringify(dummyValue, null, 2));
 // console.log("left:", c.left().get());
 // console.log("select non existing key:", c.select(2).get());
 
-writeFile("./tokens-merged.json", JSON.stringify(rawTokens, null, 2)).then(
+writeFile("./tokens-merged.json", JSON.stringify(tree.serialize(), null, 2)).then(
    () => {
       console.log("tokens-merged.json rewritten");
    }

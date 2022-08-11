@@ -39,14 +39,48 @@
                   "borderRadius": "{phone.borderRadius.md}",
                   "fill": "{light.colors.button.action.default}"
                 },
-                "type": "composition"
+                "type": "composition",
+                "m": {
+                  "type": "array",
+                  "projection": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "paths": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "options": {},
+                  "hasDynamicPaths": false
+                }
               },
               {
                 "value": {
                   "typography": "{phone.typography.ui.sm}",
                   "fill": "{color.creamy}"
                 },
-                "type": "composition"
+                "type": "composition",
+                "m": {
+                  "type": "array",
+                  "projection": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "paths": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "options": {},
+                  "hasDynamicPaths": false
+                }
               },
               null,
               {
@@ -54,7 +88,24 @@
                   "typography": "{phone.typography.ui.sm}",
                   "fill": "{color.creamy}"
                 },
-                "type": "composition"
+                "type": "composition",
+                "m": {
+                  "type": "array",
+                  "projection": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "paths": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "options": {},
+                  "hasDynamicPaths": false
+                }
               }
             ],
             "active": [
@@ -63,7 +114,24 @@
                   "borderRadius": "{phone.borderRadius.md}",
                   "fill": "{light.colors.button.action.active}"
                 },
-                "type": "composition"
+                "type": "composition",
+                "m": {
+                  "type": "array",
+                  "projection": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "paths": [
+                    [
+                      ".",
+                      "value"
+                    ]
+                  ],
+                  "options": {},
+                  "hasDynamicPaths": false
+                }
               }
             ]
           }
