@@ -10,6 +10,8 @@
   "author": "romochka@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "baobab": "^2.6.1"
+    "baobab": "^2.6.1",
+    "lodash": "^4.17.21",
+    "tree-model": "^1.0.7"
   }
 }

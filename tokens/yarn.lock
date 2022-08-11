@@ -13,3 +13,26 @@ emmett@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/emmett/-/emmett-3.2.0.tgz#f6c5912760f13df66d401df7f9d2c4e657fc40a6"
   integrity sha512-GLOQAzo1+ETCJPDKaSOXANSp1OZafBtL84dO4keY3ah4JTyL26wq0VObmBQ/9fol2Gup5y7e6YhOUd7Fx7H9Ww==
+
+find-insert-index@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/find-insert-index/-/find-insert-index-0.0.1.tgz#16cd34664c2ac233905ab2b39745bcec721362de"
+  integrity sha512-eIqFuQzY7XwpAJ3sHWKFNGLx1nm3w/IhmFASETcx5sUuCaOUd3xDqRK/376SzXMVVJQaJUCPlS7L841T0xpFjQ==
+
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
+mergesort@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/mergesort/-/mergesort-0.0.1.tgz#364ecc31b297dc7f44e511d365176f1c39d08fc2"
+  integrity sha512-WKghTBzqAvTt9rG5TWS78Dmk2kCCL9VkkX8Zi9kKfJ4iqYpvcGGpeYtkhPHa9NZAPLivZiZsdO/LBG3ENayDmQ==
+
+tree-model@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/tree-model/-/tree-model-1.0.7.tgz#45b2307aa2dfc2da8ceb6a631c1e2b15550dce88"
+  integrity sha512-oP4LUbCVtD2gcjcRaeI4L5hY60tHzB+AK/bthIJ2Pq1EUUOio5/xFzPWnGoBZlhtqpqbOkhFDzKIwKLOn0kccQ==
+  dependencies:
+    find-insert-index "0.0.1"
+    mergesort "0.0.1"
