@@ -1,6 +1,6 @@
-import { createGetters } from "./getters.js";
 import colors from "colors";
-import { createFallback } from "./fallback.js";
+import { proxify } from "./proxies.js";
+import { getData, getFallback } from "./data.js";
 
 colors.enable();
 
@@ -39,11 +39,13 @@ const convertToArrays = node => {
    return node;
 };
 
-export const om = node => createFallback(createGetters(convertToArrays(mergeTopLevels(node))));
+export const om = node => (convertToArrays(mergeTopLevels(node)));
 
 export const mo = (node, updater, path, root) => {
-   if (ot(node) === "array")
-      return node.map((item) => mo(item, updater, path, root || node));
+   if (ot(node) === "array") {
+      const arr = node.map((item) => mo(item, updater, path, root || node));
+      return updater(arr, path, root);
+   }
 
    if (ot(node) === "object") {
       const updated = Object.keys(node).reduce((acc, key) => {
