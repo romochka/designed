@@ -1,8 +1,15 @@
 import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { toXML } from "jstoxml";
+import { useTokens } from "../../providers/tokens";
 
 const Comp = () => {
+
+   const tokens = useTokens();
+
+   useEffect(() => {
+      console.log(`tokens:`, tokens.color);
+   }, [tokens])
 
    useEffect(() => {
       const obj = {
@@ -42,6 +49,8 @@ const Comp = () => {
 export const Home = () => {
 
    return (
-      <Comp />
+      <Button>
+         Aa
+      </Button>
    )
 };

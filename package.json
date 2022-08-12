@@ -1,5 +1,5 @@
 {
-  "name": "figma",
+  "name": "designed",
   "version": "0.1.0",
   "description": "figma import",
   "main": "server/index.js",
@@ -9,6 +9,9 @@
     "dev": "nodemon --ignore client/ --ignore nync/ server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "workspaces": [
+    "tokens", "client"
+  ],
   "author": "romochka",
   "license": "ISC",
   "dependencies": {

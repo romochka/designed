@@ -1,18 +1,17 @@
 {
-  "name": "tokens",
-  "version": "0.1.0",
+  "name": "@designed/tokens",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "files": ["tokens.json"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "romochka@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "baobab": "^2.6.1",
     "colors": "^1.4.0",
-    "lodash": "^4.17.21",
-    "tree-model": "^1.0.7"
+    "lodash": "^4.17.21"
   }
 }
