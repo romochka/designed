@@ -9,6 +9,11 @@ baobab@^2.6.1:
   dependencies:
     emmett "^3.2.0"
 
+colors@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
+  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
+
 emmett@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/emmett/-/emmett-3.2.0.tgz#f6c5912760f13df66d401df7f9d2c4e657fc40a6"

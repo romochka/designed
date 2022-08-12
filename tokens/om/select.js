@@ -1,5 +1,5 @@
 import { isInteger } from "./index.js";
-import { fallback } from "./fallback.js";
+import { fallbackTree } from "./fallback.js";
 
 
 export function select(tree, token) {
@@ -32,7 +32,7 @@ export function select(tree, token) {
    const cursor = tree.select(path);
    // console.log(`cursor:`, cursor.get());
 
-   const data = fallback(cursor);
+   const data = fallbackTree(cursor);
 
    return data;
 }
