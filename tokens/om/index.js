@@ -1,5 +1,3 @@
-import { proxify } from "./proxies.js";
-import { getData, getFallback } from "./data.js";
 
 export const ot = obj =>
    /^\[object (\w+)]$/

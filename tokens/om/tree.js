@@ -1,4 +1,7 @@
-import { mo, ot, so } from "./index.js";
+import { ot } from "./index.js";
+
+import lodash from "lodash";
+const { uniq } = lodash;
 
 export const isValueContainer = node =>
    ot(node) === "object" &&
@@ -8,3 +11,34 @@ export const isValueContainer = node =>
 export const isValueContainers = node =>
    ot(node) === "array" &&
    node.every(child => isValueContainer(child) || child === null);
+
+export const isEndPoint = node =>
+   node && node.hasOwnProperty("value") && node.hasOwnProperty("type");
+
+export const hasEndpoints = node => {
+   if (ot(node) !== "object") return;
+   const keys = Object.keys(node).filter(key =>
+      ot(node[key]) === "array"
+         ? node[key].some(e => isEndPoint(e))
+         : isEndPoint(node[key])
+   );
+   return keys.length > 0 ? keys : undefined;
+};
+
+export const endpointType = endpoint => {
+   if (ot(endpoint) === "array") {
+      const types = uniq(endpoint.map(e => e && e.type).filter(e=>e));
+      if (types.length > 1)
+         console.warn("enpoint array contains different types", types);
+      return types[0];
+   }
+   return endpoint.type;
+};
+
+export const hasType =
+   (...types) =>
+   endpoint =>
+      ot(endpoint) === "array"
+         ? endpoint.every(e => e === null || types.includes(e.type)) &&
+           endpoint.some(e => e !== null)
+         : types.includes(endpoint.type);

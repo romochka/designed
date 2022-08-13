@@ -48,9 +48,9 @@ const Comp = () => {
 
 export const Home = () => {
 
-   const button = useTokens("phone.light.composite.button.action.default");
+   const tokens = useTokens();
 
-   console.log(button[1]);
+   console.log(tokens.phone.light.composite.button.action.default);
 
    return (
       <Button>
