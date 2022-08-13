@@ -29,6 +29,54 @@ export const tokens = {
     "type": "spacing"
   },
   "phone": {
+    "borderRadius": {
+      "xs": {
+        "value": "3",
+        "type": "borderRadius"
+      },
+      "sm": {
+        "value": "6",
+        "type": "borderRadius"
+      },
+      "md": {
+        "value": "9",
+        "type": "borderRadius"
+      },
+      "lg": {
+        "value": "18",
+        "type": "borderRadius"
+      }
+    },
+    "fontSize": {
+      "sm": {
+        "value": "15",
+        "type": "fontSizes"
+      }
+    },
+    "typography": {
+      "ui": {
+        "sm": {
+          "value": {
+            "fontFamily": "{fontFamily.sans}",
+            "fontWeight": "Regular",
+            "lineHeight": "100%",
+            "fontSize": "{phone.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      },
+      "content": {
+        "sm": {
+          "value": {
+            "fontFamily": "{fontFamily.serif}",
+            "fontWeight": "Regular",
+            "lineHeight": "100%",
+            "fontSize": "{phone.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "light": {
       "composite": {
         "button": {
@@ -36,7 +84,7 @@ export const tokens = {
             "default": [
               {
                 "value": {
-                  "borderRadius": "{phone.borderRadius.md} * 2 + {phone.borderRadius.sm}",
+                  "borderRadius": "{phone.borderRadius.md} + {phone.borderRadius.lg} * {phone.borderRadius.md} + {phone.borderRadius.lg} - {phone.borderRadius.md} / {phone.borderRadius.xs} + {aaa.bbb}",
                   "fill": "{light.colors.button.action.default}"
                 },
                 "type": "composition"
@@ -72,6 +120,30 @@ export const tokens = {
     }
   },
   "tablet": {
+    "borderRadius": {
+      "xs": {
+        "value": "3",
+        "type": "borderRadius"
+      },
+      "sm": {
+        "value": "6",
+        "type": "borderRadius"
+      },
+      "md": {
+        "value": "9",
+        "type": "borderRadius"
+      },
+      "lg": {
+        "value": "18",
+        "type": "borderRadius"
+      }
+    },
+    "fontSize": {
+      "sm": {
+        "value": "13",
+        "type": "fontSizes"
+      }
+    },
     "light": {
       "composite": {
         "button": {

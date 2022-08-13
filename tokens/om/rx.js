@@ -1,8 +1,12 @@
 
 export const rx = {
    refs: {
-      has: /\{[^\}]+\}/,
+      single: { pass: /^\{[^\}]+\}$/ },
+      pass: /\{[^\}]+\}/,
       extract: /\{([^\}]+)\}/g
+   },
+   expression: {
+      pass: /[\+\-\/\*\(\{]/
    }
 };
 

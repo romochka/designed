@@ -17,11 +17,11 @@ const getterDescriptors = [
       fn: getRefValue,
       on: true,
    },
-   {
+   /* {
       key: "css",
       on: hasType("composition"),
       fn: getCssValue,
-   },
+   }, */
 ];
 
 const getGetterDescriptors = endpoint =>

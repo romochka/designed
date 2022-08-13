@@ -1,3 +1,5 @@
+import lodash from "lodash";
+const { merge } = lodash;
 
 export const ot = obj =>
    /^\[object (\w+)]$/
@@ -9,8 +11,13 @@ export const isGetter = (node, key) => {
    return descriptor.get;
 };
 
-const mergeTopLevels = node =>
+const mergeTopLevels0 = node =>
    Object.values(node).reduce((acc, value) => ({ ...acc, ...value }), {});
+
+const mergeTopLevels = node =>
+   Object.values(node).reduce((acc, value) => (merge(acc, value)), {});
+
+
 
 const convertToArrays = node => {
    if (ot(node) === "array") {
@@ -85,11 +92,16 @@ export const mo = (node, updater, path, root) => {
 
 export const oa = (node, mutate) => {
    if (ot(node) === "array") return node.map(n => mutate(n));
+   return mutate(node);
+};
+
+export const ad = (node, mutate) => {
+   if (ot(node) === "array") return node.map(n => mutate(n));
    if (ot(node) === "object")
       return Object.fromEntries(
          Object.entries(node).map(([key, value]) => [key, mutate(value)])
       );
-   return node;
+   return mutate(node);
 };
 
 export const so = (node, cond) => {
