@@ -3119,13 +3119,6 @@
   "resolved" "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   "version" "1.0.2"
 
-"baobab@^2.6.1":
-  "integrity" "sha512-/kLgRbQF+1bdwgs0SaNuASB9qmB3q7OsDUTOGScKa+1zY3PKw5NOW3Cf23Lun+UHH8wXJdQxGiyYkv3W1YsAGA=="
-  "resolved" "https://registry.npmjs.org/baobab/-/baobab-2.6.1.tgz"
-  "version" "2.6.1"
-  dependencies:
-    "emmett" "^3.2.0"
-
 "batch@0.6.1":
   "integrity" "sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw=="
   "resolved" "https://registry.npmjs.org/batch/-/batch-0.6.1.tgz"
@@ -9652,14 +9645,6 @@
   "version" "2.1.0"
   dependencies:
     "punycode" "^2.1.1"
-
-"tree-model@^1.0.7":
-  "integrity" "sha512-oP4LUbCVtD2gcjcRaeI4L5hY60tHzB+AK/bthIJ2Pq1EUUOio5/xFzPWnGoBZlhtqpqbOkhFDzKIwKLOn0kccQ=="
-  "resolved" "https://registry.npmjs.org/tree-model/-/tree-model-1.0.7.tgz"
-  "version" "1.0.7"
-  dependencies:
-    "find-insert-index" "0.0.1"
-    "mergesort" "0.0.1"
 
 "tryer@^1.0.1":
   "integrity" "sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA=="

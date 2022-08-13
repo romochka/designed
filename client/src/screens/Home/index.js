@@ -48,6 +48,10 @@ const Comp = () => {
 
 export const Home = () => {
 
+   const button = useTokens("phone.light.composite.button.action.default");
+
+   console.log(button[1]);
+
    return (
       <Button>
          Aa

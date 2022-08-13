@@ -1,19 +1,15 @@
 import { createContext, useContext } from "react";
-import rawTokens from "@designed/tokens/tokens.json";
-import { proxify } from "./om/proxies";
-import { getData, getFallback } from "./om/data";
+import { tokens } from "@designed/tokens/tokens.js";
+import { get } from "lodash";
 
-console.log(rawTokens);
-
-const tokens = proxify(
-   rawTokens,
-   getData,
-   getFallback
-);
+// console.log(tokens);
 
 const Context = createContext();
 
-export const useTokens = () => useContext(Context);
+export const useTokens = (path) => {
+   const tokens = useContext(Context);
+   return path ? get(tokens, path) : tokens;
+};
 
 export const TokensProvider = ({ children }) => (
 

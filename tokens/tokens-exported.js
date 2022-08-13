@@ -1,4 +1,4 @@
-{
+export const tokens = {
   "color": {
     "coolGray": {
       "value": "#8F9397",
