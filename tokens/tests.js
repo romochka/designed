@@ -1,10 +1,11 @@
 import { isGetter, mo, ot } from "./om/index.js";
-import lodash from "lodash";
-const { cloneDeep } = lodash;
 import util from "util";
-const inspect = node => util.inspect(node, { showHidden: true, getters: true, depth: 25 });
+const inspect = node =>
+   util.inspect(node, { showHidden: true, getters: true, depth: 25 });
 
-const node = {
+import { node } from "./testnode.js";
+
+const node0 = {
    light: {
       color: {
          coolGray: {
@@ -32,11 +33,62 @@ const node = {
 const isEndPoint = node =>
    node && node.hasOwnProperty("value") && node.hasOwnProperty("type");
 
-const withEndpoints = node => {
+const hasEndpoints = node => {
    if (ot(node) !== "object") return;
-   const keys = Object.keys(node).filter(key => isEndPoint(node[key]));
+   const keys = Object.keys(node).filter(key =>
+      ot(node[key]) === "array"
+         ? node[key].some(e => isEndPoint(e))
+         : isEndPoint(node[key])
+   );
    return keys.length > 0 ? keys : undefined;
-}
+};
+
+const getResolvedValue = endpoint => endpoint.value;
+const getRefValue = endpoint => endpoint.value;
+const getCssValue = endpoint => endpoint.value;
+
+const hasType =
+   (...types) =>
+   endpoint =>
+      ot(endpoint) === "array"
+      ? endpoint.every(e => e===null || types.includes(e.type)) && !endpoint.some(e=>e!==null)
+      : types.includes(endpoint.type);
+
+const getterDescriptors = [
+   {
+      key: "..",
+      fn: getResolvedValue,
+      off: hasType("composition"),
+   },
+   {
+      key: "ref",
+      fn: getRefValue,
+      on: true,
+   },
+   {
+      key: "css",
+      on: hasType("composition"),
+      fn: getCssValue,
+   },
+];
+
+const injectGetter = (node, parentKey, getterDescriptor) => {
+   let { key, fn } = getterDescriptor;
+   if (key === "..") {
+      key = parentKey;
+      Object.defineProperty(
+         node,
+         `_${key}`,
+         Object.getOwnPropertyDescriptor(node, key)
+      );
+      delete node[key];
+   }
+   Object.defineProperty(node, key, {
+      get() {
+         return fn(this);
+      }
+   });
+};
 
 const keys2getters = (node, keys) => {
    const gnode = node;
@@ -49,31 +101,55 @@ const keys2getters = (node, keys) => {
       delete gnode[key];
       Object.defineProperty(gnode, key, {
          get() {
-            return this[`_${key}`]
-         }
+            return this[`_${key}`];
+         },
       });
    });
    return gnode;
 };
 
 const t = mo(node, (node, path) => {
-   console.log(`check node`, path);
-   const keys = withEndpoints(node);
+   // console.log(`check node`, path);
+   const keys = hasEndpoints(node);
    if (keys) {
       // console.log(`node ${path || "[root]"} with endpoints:`, inspect(node));
-      console.log(`keys to getters:`, keys);
-      const gnode = keys2getters(node, keys);
-      console.log(`getters:`, Reflect.ownKeys(gnode).filter(key=>isGetter(gnode, key)));
-      console.log(`new gnode:`, inspect(gnode));
-      return gnode;
+      console.log(`${path} keys with endpoints:`, keys);
+
+      keys.forEach(key => {
+         console.log(`find getters for ${key}`);
+         const endpoint = node[key];
+         const getters = getterDescriptors.filter(gd => {
+            if (gd.on === true) return true;
+            if (gd.off === true) return false; // hmmmm...
+
+            if (gd.off && (
+               ot(endpoint) === "array"
+               ? endpoint.every(e => e===null || gd.off(e))
+               : gd.off(endpoint)
+            )) return false;
+
+            if (gd.on && (
+               ot(endpoint) === "array"
+               ? endpoint.every(e => e===null || gd.on(e))
+               : gd.on(endpoint)
+            )) return true;
+
+            return true;
+         });
+         console.log(`endpoint:`, endpoint.type);
+         console.log(`getters:`, getters.map(g => g.key));
+         
+      });
+
+      return node;
    }
    return node;
 });
 
-console.log(`res:`, inspect(t));
+// console.log(`res:`, inspect(t));
 
-console.log(t.light.color.creamy);
+// console.log(t.light.color.creamy);
 
-const secpass = mo(t, node=>node);
+// const secpass = mo(t, node=>node);
 
-console.log(`second pass:`, inspect(secpass));
+// console.log(`second pass:`, inspect(secpass));
