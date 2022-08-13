@@ -6,7 +6,10 @@ export const ot = obj =>
       .exec(Object.prototype.toString.call(obj))[1]
       .toLowerCase();
 
-export const isInteger = obj => !isNaN(parseInt(obj)) && /^\d+$/.test(obj);
+export const isGetter = (node, key) => {
+   const descriptor = Object.getOwnPropertyDescriptor(node, key);
+   return descriptor.get;
+};
 
 const mergeTopLevels = node =>
    Object.values(node).reduce((acc, value) => ({ ...acc, ...value }), {});
@@ -36,6 +39,11 @@ const convertToArrays = node => {
    return node;
 };
 
+const merge2 = (obj1, obj2) => {
+   const merged = Object.defineProperties(obj1, Object.getOwnPropertyDescriptors(obj2));
+   return merged;
+}
+
 export const om = node => (convertToArrays(mergeTopLevels(node)));
 
 export const mo = (node, updater, path, root) => {
@@ -45,21 +53,21 @@ export const mo = (node, updater, path, root) => {
    }
 
    if (ot(node) === "object") {
-      const updated = Object.keys(node).reduce((acc, key) => {
+      const updated = Reflect.ownKeys(node).reduce((acc, key) => {
+         // console.log(`checking key ${key}`);
+         if (isGetter(node, key)) {
+            // console.log(`${key} is a getter`);
+            Object.defineProperty(acc, key, Object.getOwnPropertyDescriptor(node, key));
+            return acc;
+         }
          const mutated = mo(
             node[key],
             updater,
             `${path ? path + "." : ""}${key}`,
             root || node
          );
-         const value = acc.hasOwnProperty(key)
-            ? ot(mutated) === "object" && ot(acc[key]) === "object"
-               ? { ...acc[key], ...mutated }
-               : ot(acc[key]) === "array"
-               ? [...acc[key], mutated]
-               : mutated
-            : mutated;
-         return { ...acc, [key]: value };
+         const res = merge2(acc, { [key]: mutated });
+         return res;
       }, {});
       try {
          return updater(updated, path, root);
