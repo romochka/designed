@@ -36,7 +36,7 @@ export const tokens = {
             "default": [
               {
                 "value": {
-                  "borderRadius": "{phone.borderRadius.md}",
+                  "borderRadius": "{phone.borderRadius.md} * 2 + {phone.borderRadius.sm}",
                   "fill": "{light.colors.button.action.default}"
                 },
                 "type": "composition"

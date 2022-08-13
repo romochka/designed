@@ -52,6 +52,10 @@ export const Home = () => {
 
    console.log(tokens.phone.light.composite.button.action.default);
 
+   // const button = useTokens(`phone.light.composite.button`);
+
+   // console.log(button);
+
    return (
       <Button>
          Aa

@@ -2,7 +2,7 @@
 import lodash from "lodash";
 const { camelCase } = lodash;
 
-import { getCssValue, getRefValue, getResolvedValue } from "./data.js";
+import { getCssValue, getRefValue, getResolvedValue } from "./data.mjs";
 import { isGetter, mo } from "./index.js";
 import { hasEndpoints, hasType } from "./tree.js";
 
@@ -34,7 +34,7 @@ const getGetterDescriptors = endpoint =>
       return false;
    });
 
-const injectGetter = (node, endpointKey, getterDescriptor) => {
+const injectGetter = (node, endpointKey, getterDescriptor, root) => {
    let { key, fn } = getterDescriptor;
 
    if (key === "..") {
@@ -46,7 +46,7 @@ const injectGetter = (node, endpointKey, getterDescriptor) => {
       delete node[endpointKey];
       Object.defineProperty(node, endpointKey, {
          get() {
-            return fn(this[`_${endpointKey}`]);
+            return fn(this[`_${endpointKey}`], root);
          },
       });
       return;
@@ -58,12 +58,12 @@ const injectGetter = (node, endpointKey, getterDescriptor) => {
 
    Object.defineProperty(node, getterKey, {
       get() {
-         return fn(this[originKey]);
+         return fn(this[originKey], root);
       },
    });
 };
 
-export const injectGetters = node => mo(node, (node, path) => {
+export const injectGetters = node => mo(node, (node, path, root) => {
    // console.log(`check node`, path);
    const keys = hasEndpoints(node);
    if (keys) {
@@ -81,7 +81,7 @@ export const injectGetters = node => mo(node, (node, path) => {
          ); */
          gds.forEach(gd => {
             // console.log(`inject getter ${gd.key} into ${path} for ${key}`);
-            injectGetter(node, key, gd);
+            injectGetter(node, key, gd, root);
          });
       });
 

@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "files": ["tokens.json", "tokens.js"],
+  "files": [
+    "tokens.json",
+    "tokens.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "reduce-css-calc": "^2.1.8"
   }
 }
