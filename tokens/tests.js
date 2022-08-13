@@ -1,9 +1,11 @@
 import { isGetter, mo, ot } from "./om/index.js";
+import lodash from "lodash";
+const { camelCase } = lodash;
 import util from "util";
 const inspect = node =>
    util.inspect(node, { showHidden: true, getters: true, depth: 25 });
 
-import { node } from "./testnode.js";
+import { tokens as node } from "./tokens-exported.js";
 
 const node0 = {
    light: {
@@ -47,18 +49,28 @@ const getResolvedValue = endpoint => endpoint.value;
 const getRefValue = endpoint => endpoint.value;
 const getCssValue = endpoint => endpoint.value;
 
+const endpointType = endpoint => {
+   if (ot(endpoint) === "array") {
+      const types = endpoint.map(e => e && e.type).filter(e=>e);
+      if (types.length > 1)
+         console.warn("enpoint array contains different types", types);
+      return types[0];
+   }
+   return endpoint.type;
+};
 const hasType =
    (...types) =>
    endpoint =>
       ot(endpoint) === "array"
-      ? endpoint.every(e => e===null || types.includes(e.type)) && !endpoint.some(e=>e!==null)
-      : types.includes(endpoint.type);
+         ? endpoint.every(e => e === null || types.includes(e.type)) &&
+           endpoint.some(e => e !== null)
+         : types.includes(endpoint.type);
 
 const getterDescriptors = [
    {
-      key: "..",
+      key: "..", // modifies node endpoint key
       fn: getResolvedValue,
-      off: hasType("composition"),
+      on: true,
    },
    {
       key: "ref",
@@ -72,21 +84,42 @@ const getterDescriptors = [
    },
 ];
 
-const injectGetter = (node, parentKey, getterDescriptor) => {
+const getGetterDescriptors = endpoint =>
+   getterDescriptors.filter(gd => {
+      if (gd.on === true) return true;
+      if (gd.off === true) return false; // hmmmm...
+      if (gd.off && gd.off(endpoint)) return false;
+      if (gd.off && !gd.off(endpoint) && !gd.on) return true;
+      if (gd.on && gd.on(endpoint)) return true;
+      return false;
+   });
+
+const injectGetter = (node, endpointKey, getterDescriptor) => {
    let { key, fn } = getterDescriptor;
+
    if (key === "..") {
-      key = parentKey;
       Object.defineProperty(
          node,
-         `_${key}`,
-         Object.getOwnPropertyDescriptor(node, key)
+         `_${endpointKey}`,
+         Object.getOwnPropertyDescriptor(node, endpointKey)
       );
-      delete node[key];
+      delete node[endpointKey];
+      Object.defineProperty(node, endpointKey, {
+         get() {
+            return fn(this[`_${endpointKey}`]);
+         },
+      });
+      return;
    }
-   Object.defineProperty(node, key, {
+
+   const originKey = isGetter(node, endpointKey) ? `_${endpointKey}` : endpointKey;
+
+   const getterKey = camelCase(`${endpointKey.replace(/^_/, "")} ${key}`);
+
+   Object.defineProperty(node, getterKey, {
       get() {
-         return fn(this);
-      }
+         return fn(this[originKey]);
+      },
    });
 };
 
@@ -118,27 +151,16 @@ const t = mo(node, (node, path) => {
       keys.forEach(key => {
          console.log(`find getters for ${key}`);
          const endpoint = node[key];
-         const getters = getterDescriptors.filter(gd => {
-            if (gd.on === true) return true;
-            if (gd.off === true) return false; // hmmmm...
-
-            if (gd.off && (
-               ot(endpoint) === "array"
-               ? endpoint.every(e => e===null || gd.off(e))
-               : gd.off(endpoint)
-            )) return false;
-
-            if (gd.on && (
-               ot(endpoint) === "array"
-               ? endpoint.every(e => e===null || gd.on(e))
-               : gd.on(endpoint)
-            )) return true;
-
-            return true;
+         const gds = getGetterDescriptors(endpoint);
+         console.log(`endpoint:`, endpointType(endpoint));
+         console.log(
+            `getters:`,
+            gds.map(g => g.key)
+         );
+         gds.forEach(gd => {
+            console.log(`inject getter ${gd.key} into ${path} for ${key}`);
+            injectGetter(node, key, gd);
          });
-         console.log(`endpoint:`, endpoint.type);
-         console.log(`getters:`, getters.map(g => g.key));
-         
       });
 
       return node;
@@ -146,9 +168,22 @@ const t = mo(node, (node, path) => {
    return node;
 });
 
-// console.log(`res:`, inspect(t));
+const obj = {
+   _a: 7,
+   get a() {
+      return this._a;
+   },
+   get b() {
+      return this.a;
+   },
+};
 
-// console.log(t.light.color.creamy);
+
+// console.log(obj.a.b);
+
+console.log(`res:`, Object.keys(t.color));
+
+console.log(t.color.creamy);
 
 // const secpass = mo(t, node=>node);
 
