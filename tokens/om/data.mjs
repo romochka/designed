@@ -24,6 +24,7 @@ export const getResolvedValue = (endpoint, root) => oa(endpoint, endpoint => {
    if (ot(endpoint.value) === "string") return resolve(endpoint.value, root);
 
    if (ot(endpoint.value) === "object") {
+      /* 
       console.log(`endpoint value:`, endpoint.value);
       const mapped = mo(endpoint.value, node => {
          if (isExpression(node, root)) {
@@ -32,7 +33,7 @@ export const getResolvedValue = (endpoint, root) => oa(endpoint, endpoint => {
             console.log(`resolved:`, res);
          }
          return node;
-      });
+      }); */
    }
 
    return endpoint.value;

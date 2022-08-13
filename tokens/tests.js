@@ -62,10 +62,11 @@ const obj = {
 
 
 // console.log("-----------------------");
-// console.log(`inspect:`, inspect(tokens.phone.light.composite.button.action.default[0].borderRadius));
+console.log(`inspect:`, inspect(tokens.phone.light.composite.button.action.default));
+console.log(`inspect:`, inspect(tokens.light.colors.button.action));
 
-const refString = tokens.phone.light.composite.button.action.default[0].borderRadius;
+// const refString = tokens.phone.light.composite.button.action.default[0].borderRadius;
 
-console.log(`ref string:`, refString);
+// console.log(`ref string:`, refString);
 
 // console.log(`resolveRefExpressionString:`, resolveRefsInExpressionString(refString, tokens));
