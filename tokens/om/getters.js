@@ -35,6 +35,9 @@ const getGetterDescriptors = endpoint =>
    });
 
 const injectGetter = (node, endpointKey, getterDescriptor, root) => {
+
+   if (!root) throw new Error();
+
    let { key, fn } = getterDescriptor;
 
    if (key === "..") {
@@ -81,6 +84,11 @@ export const injectGetters = node => mo(node, (node, path, root) => {
          ); */
          gds.forEach(gd => {
             // console.log(`inject getter ${gd.key} into ${path} for ${key}`);
+            if (!root) {
+               console.warn(`no root for ${path}`);
+               throw new Error();
+               // console.log(`node:`, node);
+            }
             injectGetter(node, key, gd, root);
          });
       });

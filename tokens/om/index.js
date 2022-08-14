@@ -52,9 +52,14 @@ const merge2 = (obj1, obj2) => {
 export const om = node => (convertToArrays(mergeTopLevels(node)));
 
 export const mo = (node, updater, path, root) => {
+
+   // throw new Error();
+   const realroot = root || node;
+   if (!realroot) throw new Error();
+
    if (ot(node) === "array") {
       const arr = node.map((item) => mo(item, updater, path, root || node));
-      return updater(arr, path, root);
+      return updater(arr, path, root || node);
    }
 
    if (ot(node) === "object") {
@@ -75,14 +80,14 @@ export const mo = (node, updater, path, root) => {
          return res;
       }, {});
       try {
-         return updater(updated, path, root);
+         return updater(updated, path, root || node);
       } catch (err) {
          console.error(err);
          return updated;
       }
    }
    try {
-      return updater(node, path, root);
+      return updater(node, path, root || node);
    } catch (err) {
       console.error(err);
       return node;

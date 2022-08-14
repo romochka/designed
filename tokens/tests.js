@@ -9,6 +9,8 @@ import { tokens as imported } from "./tokens-exported.js";
 import { injectGetters } from "./om/getters.js";
 import { resolveRefsInExpressionString } from "./om/resolve/refs.js";
 
+console.log(`%---------------------- RESTART -----------------------`);
+
 const node0 = {
    light: {
       color: {
@@ -62,8 +64,11 @@ const obj = {
 
 
 // console.log("-----------------------");
-console.log(`inspect:`, inspect(tokens.phone.light.composite.button.action.default));
-console.log(`inspect:`, inspect(tokens.light.colors.button.action));
+// console.log(`inspect:`, inspect(tokens.phone.light.composite.button.action.default));
+
+// console.clear();
+
+console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
 
 // const refString = tokens.phone.light.composite.button.action.default[0].borderRadius;
 

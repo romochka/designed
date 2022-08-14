@@ -5,15 +5,28 @@ import lodash from "lodash";
 const { get } = lodash;
 
 export const resolve = (expression, root) => {
+   console.log("expression candidate:", expression);
 
-   console.log("expression:", expression);
+   if (!isExpression(expression, root)) {
+      console.log(`${expression} is not an expression`);
+      return expression;
+   }
 
    const res = resolveRefsInExpressionString(expression, root);
 
-   console.log(res);
+   console.log(`resolve res:`, res);
 
    return res;
+};
 
+const isRefObject = (ref, root) => {
+   if (rx.refs.single.pass.test(ref)) {
+      const path = ref.replace(/[\{\}]/g, "");
+      console.log(`expression path:`, path);
+      const refValue = get(root, path);
+      return ot(refValue) === "object";
+   }
+   return false;
 };
 
 export const isExpression = (value, root) => {
@@ -21,13 +34,13 @@ export const isExpression = (value, root) => {
 
    if (ot(value) === "string") {
 
-      if (rx.refs.single.pass.test(value) &&
-         ot(get(root, value.replace(/[\{\}]/g, ""))) === "object") return false;
+      if (isRefObject(value, root)) {
+         // console.log(`reference is an object`);
+         return false;
+      }
 
       if (!isNaN(Number(value))) return true;
 
       return rx.expression.pass.test(value);
-
    }
-
 };
