@@ -1,15 +1,15 @@
 
 import lodash from "lodash";
+import { hasEndpoints } from "../resolve/endpoints.js";
+import { resolve } from "../resolve/index.js";
 const { camelCase } = lodash;
-
-import { getCssValue, getRefValue, resolveEndpoint } from "./resolve/data.mjs";
 import { isGetter, mo } from "./index.js";
-import { hasEndpoints, hasType, hasDefaultState } from "./tree.js";
+
 
 const getterDescriptors = [
    {
       key: "..", // modifies node endpoint key
-      fn: resolveEndpoint,
+      fn: resolve,
       on: true,
    },
    /* {
@@ -31,7 +31,7 @@ const getGetterDescriptors = endpoint =>
 
 const injectGetter = (node, endpointKey, getterDescriptor, root) => {
 
-   if (!root) throw new Error();
+   if (!root) throw "no root provided";
 
    let { key, fn } = getterDescriptor;
 
@@ -80,8 +80,7 @@ export const injectGetters = node => mo(node, (node, path, root) => {
          gds.forEach(gd => {
             // console.log(`inject getter ${gd.key} into ${path} for ${key}`);
             if (!root) {
-               console.warn(`no root for ${path}`);
-               throw new Error();
+               throw `no root for ${path}`;
                // console.log(`node:`, node);
             }
             injectGetter(node, key, gd, root);

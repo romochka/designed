@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
-import { om } from "./om/index.js";
+import { om } from "./om/om.js";
 // import { getData, getFallback } from "./om/data.js";
 
 const rawTokens = await readFile("./figma/tokens.json", { encoding: "utf-8" })

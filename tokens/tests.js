@@ -7,7 +7,7 @@ const inspect = node =>
 
 import { tokens } from "./tokens.js";
 import { injectGetters } from "./om/getters.js";
-import { resolveRefsInExpressionString } from "./om/resolve/refs.js";
+import { resolveRefsInExpressionString } from "./resolve0/refs.js";
 
 console.log(`%---------------------- RESTART -----------------------`);
 

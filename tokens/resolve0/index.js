@@ -1,8 +1,8 @@
-import { ot } from "../index.js";
-import { rx } from "../rx.js";
+import { ot } from "../om/index.js";
+import { rx } from "../om/rx.js";
 import { resolveEndpointRef, resolveRefsInExpressionString } from "./refs.js";
 import lodash from "lodash";
-import { isEndpoint } from "../tree.js";
+import { isEndpoint } from "../om/tree.js";
 import { resolveEndpoint } from "./data.mjs";
 import { getEndpointCssValue } from "./convert.mjs";
 const { get } = lodash;

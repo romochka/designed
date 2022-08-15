@@ -136,6 +136,48 @@ export const tokens = {
           }
         }
       }
+    },
+    "dark": {
+      "composite": {
+        "button": {
+          "action": {
+            "default": [
+              {
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
+                },
+                "fill": {
+                  "value": "{light.colors.button.action.default}",
+                  "type": "fill"
+                }
+              },
+              {
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
+                },
+                "fill": {
+                  "value": "{color.creamy}",
+                  "type": "fill"
+                }
+              }
+            ],
+            "active": [
+              {
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
+                },
+                "fill": {
+                  "value": "{light.colors.button.action.active}",
+                  "type": "fill"
+                }
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "tablet": {
@@ -247,6 +289,52 @@ export const tokens = {
           "fontSize": {
             "value": "{phone.fontSize.sm}",
             "type": "fontSize"
+          }
+        }
+      }
+    },
+    "dark": {
+      "composite": {
+        "button": {
+          "action": {
+            "default": [
+              {
+                "fill": {
+                  "value": "{light.colors.button.action.default}",
+                  "type": "fill"
+                },
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
+                },
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
+                }
+              },
+              {
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
+                },
+                "fill": {
+                  "value": "{color.creamy}",
+                  "type": "fill"
+                }
+              }
+            ],
+            "active": [
+              {
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
+                },
+                "fill": {
+                  "value": "{light.colors.button.action.active}",
+                  "type": "fill"
+                }
+              }
+            ]
           }
         }
       }

@@ -1,6 +1,6 @@
-import { mo, oa, ot } from "../index.js";
+import { mo, oa, ot } from "../om/index.js";
 import { isExpression, resolve } from "./index.js";
-import { rx } from "../rx.js";
+import { rx } from "../om/rx.js";
 
 export function getFallback(node, missingKey, path, root) {
    console.log(`%cfallback`, "color:orange");

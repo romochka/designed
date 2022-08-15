@@ -1,5 +1,5 @@
 import lodash from "lodash";
-const { merge, cloneDeep } = lodash;
+const { merge, has, set, get, cloneDeep } = lodash;
 
 export const ot = obj =>
    /^\[object (\w+)]$/
@@ -11,19 +11,26 @@ export const isGetter = (node, key) => {
    return descriptor.get;
 };
 
-const mergeTopLevels = node =>
+export const mergeTopLevels = node =>
    Object.values(node).reduce((acc, value) => (merge(acc, value)), {});
 
-const fallbackMerge = (node, keys) => {
-   // keys: ["phone", "tablet"]
+export const mergeKeys = (node, keys) => {
    return keys.reduce((node, key, index, keys) => {
       if (index===0) return node;
-      if (!node.hasOwnProperty(key)) return {...node, [key]: node[keys[index-1]] };
-      return {...node, [key]: merge(node[key], (node[keys[index-1]])) };
+      if (!has(node, key)) {
+         set(node, key, get(node, keys[index-1]));
+         return node;
+      }
+      const merged = merge(
+         get(node, key),
+         get(node, keys[index-1])
+      );
+      set(node, key, merged);
+      return node;
    }, node);
 }
 
-const convertToArrays = node => {
+export const convertToArrays = node => {
    if (ot(node) === "array") {
       console.log("array received:", node);
       return node.map(n => convertToArrays(n));
@@ -44,7 +51,7 @@ const convertToArrays = node => {
       // console.log(res);
       return res;
    }
-   if (node === undefined) throw new Error("err");
+   if (node === undefined) throw "error";
    return node;
 };
 
@@ -52,18 +59,6 @@ const merge2 = (obj1, obj2) => {
    const merged = Object.defineProperties(obj1, Object.getOwnPropertyDescriptors(obj2));
    return merged;
 }
-
-export const om = node => fallbackMerge(fallbackMerge(
-   convertToArrays(mergeTopLevels(node)),
-   [
-      "phone",
-      "tablet",
-   ]
-),
-[
-   "light",
-   "dark",
-]);
 
 export const mo = (node, updater, path, root) => {
 
