@@ -50,7 +50,7 @@ export const Home = () => {
 
    const tokens = useTokens();
 
-   console.log(tokens.phone.light.composite.button.action.default);
+   console.log(tokens.composite.button.action.default);
 
    // const button = useTokens(`phone.light.composite.button`);
 

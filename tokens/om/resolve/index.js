@@ -4,18 +4,28 @@ import { resolveEndpointRef, resolveRefsInExpressionString } from "./refs.js";
 import lodash from "lodash";
 import { isEndpoint } from "../tree.js";
 import { resolveEndpoint } from "./data.mjs";
+import { getEndpointCssValue } from "./convert.mjs";
 const { get } = lodash;
 
 const resolveObject = (node, root) => {
-   const res = Object.fromEntries(Object.entries(node).map(([key, child]) => {
-      if (isEndpoint(child)) return [key, resolveEndpoint(child, root)];
+   console.log(`resolveObject:`, node);
+   const res = Object.fromEntries(Object.entries(node)
+   .map(([key, child]) => {
+      console.log(`resolveObject: iterate: child:`, child);
+      if (isEndpoint(child)) {
+         // console.log(`resolveObject: endpoint found:`);
+         // const res = resolveEndpoint(child, root);
+         // console.log(`resolveObject: returned res:`, res);
+         return [key, resolveEndpoint(child, root)]
+      };
       if (ot(child) === "object") return [key, resolveObject(child, root)];
       return [key, child];
    }));
    return res;
 };
 
-export const resolve = (expression, root) => {
+export const resolve = (endpoint, root) => {
+   const expression = endpoint.value;
    console.log("resolve: expression candidate:", expression);
 
    const ro = refObject(expression, root);
@@ -25,19 +35,19 @@ export const resolve = (expression, root) => {
          console.log(`resolve: expression is reference to endpoint`);
          return resolveEndpointRef(expression, root);
       }
-      console.log(`resolve: expression is reference to object`);
+      console.log(`resolve: expression is reference to object`, ro);
       return resolveObject(ro, root);
    }
 
    if (isExpression(expression, root)) {
       console.log(`resolve: expression is an expression`);
-      const res = resolveRefsInExpressionString(expression, root);   
+      const res = resolveRefsInExpressionString(expression, root);
       console.log(`resolve: return result:`, res);
       return res;
    }
 
-   console.log(`resolve: return untouched`);
-   return expression;
+   console.log(`resolve: return ${expression} untouched`);
+   return getEndpointCssValue(endpoint);
 };
 
 const refObject = (ref, root) => {

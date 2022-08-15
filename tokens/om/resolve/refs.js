@@ -4,24 +4,25 @@ import { ot } from "../index.js";
 import { resolve } from "./index.js";
 import { isEndpoint } from "../tree.js";
 import { resolveEndpoint } from "./data.mjs";
+import { getEndpointCssValue, getEndpointUnit } from "./convert.mjs";
 const { get } = lodash;
 
 const resolveRef = (refString, root) => {
    const res = get(root, refString);
-   console.log(`\nresolveRef: result:`, res, "\n");
+   // console.log(`\nresolveRef: result:`, res, "\n");
    return res;
 }
 
 export const resolveEndpointRef = (refEndpoint, root) => {
    const ref = [...refEndpoint.match(rx.refs.single.extract)][1];
    console.log(`resolveEndpointRef: ref:`, ref);
-   const res = resolveRef(ref, root);
-   console.log(`resolveEndpointRef: return result value:`, res.value);
-   if (rx.refs.pass.test(res.value)) {
+   const endpoint = resolveRef(ref, root);
+   console.log(`resolveEndpointRef: return result of type ${endpoint.type} value:`, endpoint.value);
+   if (rx.refs.pass.test(endpoint.value)) {
       console.log(`resolveEndpointRef: value contains another refs`);
-      return resolve(res.value, root);
+      return resolve(endpoint, root);
    }
-   return res.value;
+   return getEndpointCssValue(endpoint);
 }
 
 export const resolveRefsInExpressionString = (refExpressionString, root) => {
@@ -50,7 +51,7 @@ export const resolveRefsInExpressionString = (refExpressionString, root) => {
 
    const res = refs.reduce((str, ref) => {
       const r = new RegExp(`{${ref.path}}`, "g");
-      return str.replace(r, ref.resolved);
+      return str.replace(r, isEndpoint(ref.resolved) ? resolveEndpoint(ref.resolved, root) : ref.resolved);
    }, refExpressionString);
 
    return res;

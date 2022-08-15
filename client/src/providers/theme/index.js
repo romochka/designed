@@ -1,30 +1,13 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider as TP, createTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useMemo } from "react";
-// import { theme } from "./theme";
-import { tokens } from "@designed/tokens/tokens.js";
+import { ThemeProvider as TP } from "@mui/material/styles";
+import { useTokens } from "../tokens";
+import { theme } from "./theme";
 
 export const ThemeProvider = ({ children }) => {
-   const tablet = useMediaQuery("(min-width: 1000px)");
-   const dark = useMediaQuery("(prefers-color-scheme: dark)");
-
-   const theme = useMemo(() => {
-
-      console.log(Object.keys(tokens));
-
-      const device = tablet ? "tablet" : "phone";
-      const scheme = dark ? "dark" : "light";
-
-      return createTheme({
-         tokens: {
-
-         },
-      });
-   }, [tablet, dark]);
-
+   const tokens = useTokens();
+   console.log(tokens);
    return (
-      <TP theme={theme}>
+      <TP theme={theme(tokens)}>
          <CssBaseline />
          {children}
       </TP>

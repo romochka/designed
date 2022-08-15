@@ -22,8 +22,10 @@ export const resolveEndpoint = (endpoint, root) => oa(endpoint, endpoint => {
    if (!endpoint.value) throw endpoint.hasOwnProperty("value") ? "endpoint value is falsy" : "endpoint has no value";
 
    if (ot(endpoint.value) === "string") {
-      return resolve(endpoint.value, root);
+      return resolve(endpoint, root);
    }
+
+   throw "endpoint value not a string";
 
    return endpoint.value;
 
