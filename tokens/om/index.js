@@ -53,13 +53,17 @@ const merge2 = (obj1, obj2) => {
    return merged;
 }
 
-export const om = node => fallbackMerge(
+export const om = node => fallbackMerge(fallbackMerge(
    convertToArrays(mergeTopLevels(node)),
    [
       "phone",
       "tablet",
-]
-);
+   ]
+),
+[
+   "light",
+   "dark",
+]);
 
 export const mo = (node, updater, path, root) => {
 

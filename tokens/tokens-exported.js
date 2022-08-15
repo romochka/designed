@@ -3,7 +3,7 @@ export const tokens = {
     "coolGray": {
       "value": "#8F9397",
       "type": "color",
-      "description": "button surface"
+      "description": "button surfac"
     },
     "creamy": {
       "value": "#FBFAF5",
@@ -272,5 +272,21 @@ export const tokens = {
     "value": "123",
     "type": "other",
     "description": "devicetype"
+  },
+  "dark": {
+    "colors": {
+      "button": {
+        "action": {
+          "default": {
+            "value": "{color.coolGray}",
+            "type": "color"
+          },
+          "active": {
+            "value": "#7c8084",
+            "type": "color"
+          }
+        }
+      }
+    }
   }
 }
