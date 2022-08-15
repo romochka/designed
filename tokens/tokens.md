@@ -1,41 +1,89 @@
 # Tokens
 
-## Struc
+## Object
 
-\[device][colorScheme].tokens[component][variant][state][0|childIndex+1]
+```
+tokens[device][colorScheme].composite[variant][state][index]
+```
 
-taking Button for instance,
+Button sample:
 
-\<Button>
-Text
-\</Button>
+```
+<Button>
+  Label text
+</Button>
+```
+
+## State
+States are arrays. 
+Use first token `.stateName[0]` for container, the rest - for children.
 
 ### Button default state
-Container:  
-phone.light.tokens.button.action[0]  
+Container:
+```
+tokens.phone.light.composite.button.action.default[0]
+```
 Text:
-phone.light.tokens.button.action[1]
+```
+tokens.phone.light.composite.button.action.default[1]
+```
 
 ### Button:hover
-Container: phone.light.tokens.button.action.hover[0]  
+Container:
+```
+tokens.phone.light.composite.button.action.hover[0]
+```
+<br />
+
+## Basic tokens
+```
+tokens[color|spacing|fontFamily].*
+```
+Basic tokens are used as reference values inside other tokens.
+
+<br />
+
+## Device-dependent tokens
+```
+tokens[device][borderRadius|fontSize|typography].*
+```
+Everything that depends on the screen size.
+
+<br />
+
+## Color scheme-dependent tokens
+```
+tokens[colorScheme][colors].*
+```
+Everything color-related.
+
+<br />
+
+
+## Composite tokens
+```
+tokens[device][scheme].composite.*
+```
+
+
+
+## Get value
+
+### Endpoints
+Endpoint is the last token's part, which returns the value.
+```
+tokens.phone.light.composite.button.action[0]
+```
+`action[0]` is an endpoint
 
 ## Fallback
-upper sibling, then parent
-
-<pre>
-tokenArray = [
-   container: value,
-   child1: value,
-   child2: [
-      container: value,
-      child1: value
-      child2: value
-   ],
-   child3: value
-]
-</pre>
 
 ### Siblings order
-device: \["phone", "tablet"]  
+
+device:
+```
+["phone", "tablet"]
+```
+
 colorScheme: \["light", "dark"]
 

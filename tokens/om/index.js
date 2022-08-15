@@ -1,5 +1,5 @@
 import lodash from "lodash";
-const { merge } = lodash;
+const { merge, cloneDeep } = lodash;
 
 export const ot = obj =>
    /^\[object (\w+)]$/
@@ -11,13 +11,17 @@ export const isGetter = (node, key) => {
    return descriptor.get;
 };
 
-const mergeTopLevels0 = node =>
-   Object.values(node).reduce((acc, value) => ({ ...acc, ...value }), {});
-
 const mergeTopLevels = node =>
    Object.values(node).reduce((acc, value) => (merge(acc, value)), {});
 
-
+const fallbackMerge = (node, keys) => {
+   // keys: ["phone", "tablet"]
+   return keys.reduce((node, key, index, keys) => {
+      if (index===0) return node;
+      if (!node.hasOwnProperty(key)) return {...node, [key]: node[keys[index-1]] };
+      return {...node, [key]: merge(node[key], (node[keys[index-1]])) };
+   }, node);
+}
 
 const convertToArrays = node => {
    if (ot(node) === "array") {
@@ -49,7 +53,13 @@ const merge2 = (obj1, obj2) => {
    return merged;
 }
 
-export const om = node => (convertToArrays(mergeTopLevels(node)));
+export const om = node => fallbackMerge(
+   convertToArrays(mergeTopLevels(node)),
+   [
+      "phone",
+      "tablet",
+]
+);
 
 export const mo = (node, updater, path, root) => {
 

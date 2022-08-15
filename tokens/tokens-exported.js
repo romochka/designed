@@ -56,24 +56,42 @@ export const tokens = {
     "typography": {
       "ui": {
         "sm": {
-          "value": {
-            "fontFamily": "{fontFamily.sans}",
-            "fontWeight": "Regular",
-            "lineHeight": "100%",
-            "fontSize": "{phone.fontSize.sm}"
+          "fontFamily": {
+            "value": "{fontFamily.sans}",
+            "type": "fontFamily"
           },
-          "type": "typography"
+          "fontWeight": {
+            "value": "Regular",
+            "type": "fontWeight"
+          },
+          "lineHeight": {
+            "value": "100%",
+            "type": "lineHeight"
+          },
+          "fontSize": {
+            "value": "{phone.fontSize.sm}",
+            "type": "fontSize"
+          }
         }
       },
       "content": {
         "sm": {
-          "value": {
-            "fontFamily": "{fontFamily.serif}",
-            "fontWeight": "Regular",
-            "lineHeight": "100%",
-            "fontSize": "{phone.fontSize.sm}"
+          "fontFamily": {
+            "value": "{fontFamily.serif}",
+            "type": "fontFamily"
           },
-          "type": "typography"
+          "fontWeight": {
+            "value": "Regular",
+            "type": "fontWeight"
+          },
+          "lineHeight": {
+            "value": "100%",
+            "type": "lineHeight"
+          },
+          "fontSize": {
+            "value": "{phone.fontSize.sm}",
+            "type": "fontSize"
+          }
         }
       }
     },
@@ -83,35 +101,36 @@ export const tokens = {
           "action": {
             "default": [
               {
-                "value": {
-                  "borderRadius": "{phone.borderRadius.md} + {phone.borderRadius.lg} * {phone.borderRadius.md} + {phone.borderRadius.lg} - {phone.borderRadius.md} / {phone.borderRadius.xs} + {aaa.bbb}",
-                  "fill": "{light.colors.button.action.default}"
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
                 },
-                "type": "composition"
+                "fill": {
+                  "value": "{light.colors.button.action.default}",
+                  "type": "fill"
+                }
               },
               {
-                "value": {
-                  "typography": "{phone.typography.ui.sm}",
-                  "fill": "{color.creamy}"
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
                 },
-                "type": "composition"
-              },
-              null,
-              {
-                "value": {
-                  "typography": "{phone.typography.ui.sm}",
-                  "fill": "{color.creamy}"
-                },
-                "type": "composition"
+                "fill": {
+                  "value": "{color.creamy}",
+                  "type": "fill"
+                }
               }
             ],
             "active": [
               {
-                "value": {
-                  "borderRadius": "{phone.borderRadius.md}",
-                  "fill": "{light.colors.button.action.active}"
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
                 },
-                "type": "composition"
+                "fill": {
+                  "value": "{light.colors.button.action.active}",
+                  "type": "fill"
+                }
               }
             ]
           }
@@ -140,7 +159,7 @@ export const tokens = {
     },
     "fontSize": {
       "sm": {
-        "value": "13",
+        "value": "15",
         "type": "fontSizes"
       }
     },
@@ -148,14 +167,86 @@ export const tokens = {
       "composite": {
         "button": {
           "action": {
-            "default": {
-              "value": {
-                "fill": "{light.colors.button.action.default}",
-                "borderRadius": "{phone.borderRadius.md}",
-                "typography": "{phone.typography.ui.sm}"
+            "default": [
+              {
+                "fill": {
+                  "value": "{light.colors.button.action.default}",
+                  "type": "fill"
+                },
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
+                },
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
+                }
               },
-              "type": "composition"
-            }
+              {
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
+                },
+                "fill": {
+                  "value": "{color.creamy}",
+                  "type": "fill"
+                }
+              }
+            ],
+            "active": [
+              {
+                "borderRadius": {
+                  "value": "{phone.borderRadius.md}",
+                  "type": "borderRadius"
+                },
+                "fill": {
+                  "value": "{light.colors.button.action.active}",
+                  "type": "fill"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "typography": {
+      "ui": {
+        "sm": {
+          "fontFamily": {
+            "value": "{fontFamily.sans}",
+            "type": "fontFamily"
+          },
+          "fontWeight": {
+            "value": "Regular",
+            "type": "fontWeight"
+          },
+          "lineHeight": {
+            "value": "100%",
+            "type": "lineHeight"
+          },
+          "fontSize": {
+            "value": "{phone.fontSize.sm}",
+            "type": "fontSize"
+          }
+        }
+      },
+      "content": {
+        "sm": {
+          "fontFamily": {
+            "value": "{fontFamily.serif}",
+            "type": "fontFamily"
+          },
+          "fontWeight": {
+            "value": "Regular",
+            "type": "fontWeight"
+          },
+          "lineHeight": {
+            "value": "100%",
+            "type": "lineHeight"
+          },
+          "fontSize": {
+            "value": "{phone.fontSize.sm}",
+            "type": "fontSize"
           }
         }
       }

@@ -57,7 +57,7 @@ export const Home = () => {
    // console.log(button);
 
    return (
-      <Button>
+      <Button variant="action">
          Aa
       </Button>
    )

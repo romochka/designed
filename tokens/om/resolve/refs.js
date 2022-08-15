@@ -1,8 +1,28 @@
 import { rx } from "../rx.js";
 import lodash from "lodash";
+import { ot } from "../index.js";
+import { resolve } from "./index.js";
+import { isEndpoint } from "../tree.js";
+import { resolveEndpoint } from "./data.mjs";
 const { get } = lodash;
 
-const resolveRef = (refString, root) => get(root, refString);
+const resolveRef = (refString, root) => {
+   const res = get(root, refString);
+   console.log(`\nresolveRef: result:`, res, "\n");
+   return res;
+}
+
+export const resolveEndpointRef = (refEndpoint, root) => {
+   const ref = [...refEndpoint.match(rx.refs.single.extract)][1];
+   console.log(`resolveEndpointRef: ref:`, ref);
+   const res = resolveRef(ref, root);
+   console.log(`resolveEndpointRef: return result value:`, res.value);
+   if (rx.refs.pass.test(res.value)) {
+      console.log(`resolveEndpointRef: value contains another refs`);
+      return resolve(res.value, root);
+   }
+   return res.value;
+}
 
 export const resolveRefsInExpressionString = (refExpressionString, root) => {
 

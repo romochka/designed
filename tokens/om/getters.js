@@ -2,25 +2,20 @@
 import lodash from "lodash";
 const { camelCase } = lodash;
 
-import { getCssValue, getRefValue, getResolvedValue } from "./data.mjs";
+import { getCssValue, getRefValue, resolveEndpoint } from "./resolve/data.mjs";
 import { isGetter, mo } from "./index.js";
-import { hasEndpoints, hasType } from "./tree.js";
+import { hasEndpoints, hasType, hasDefaultState } from "./tree.js";
 
 const getterDescriptors = [
    {
       key: "..", // modifies node endpoint key
-      fn: getResolvedValue,
-      on: true,
-   },
-   {
-      key: "ref",
-      fn: getRefValue,
+      fn: resolveEndpoint,
       on: true,
    },
    /* {
-      key: "css",
-      on: hasType("composition"),
-      fn: getCssValue,
+      key: "ref",
+      fn: getRefValue,
+      on: true,
    }, */
 ];
 

@@ -5,7 +5,7 @@ import util from "util";
 const inspect = node =>
    util.inspect(node, { showHidden: true, getters: true, depth: 25 });
 
-import { tokens as imported } from "./tokens-exported.js";
+import { tokens } from "./tokens.js";
 import { injectGetters } from "./om/getters.js";
 import { resolveRefsInExpressionString } from "./om/resolve/refs.js";
 
@@ -37,8 +37,6 @@ const node0 = {
 };
 
 
-const tokens = injectGetters(imported);
-
 const obj = {
    _a: 7,
    get a() {
@@ -68,7 +66,11 @@ const obj = {
 
 // console.clear();
 
-console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
+// console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
+
+console.log(`tokens.phone.light.composite.button.action:`, inspect(tokens.phone.light.composite.button.action.default[0]));
+
+// console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
 
 // const refString = tokens.phone.light.composite.button.action.default[0].borderRadius;
 
