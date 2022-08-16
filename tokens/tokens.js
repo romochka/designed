@@ -4,7 +4,8 @@
 
 import { tokens as imported } from "./tokens-exported.js";
 import { injectGetters } from "./om/getters.js";
+import { resolveAll } from "./resolve/index.js";
 
 // export const tokens = proxify(imported, getData, getFallback);
 
-export const tokens = injectGetters(imported);
+export const tokens = resolveAll(injectGetters(imported));

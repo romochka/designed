@@ -68,7 +68,13 @@ const obj = {
 
 // console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
 
-console.log(`tokens.phone.light.composite.button.action:`, inspect(tokens.phone.light.composite.button.action.default[0]));
+console.log(`tokens.phone.light.composite.button.action:`, inspect(tokens.phone.light.composite.button.action));
+
+// console.log(`tokens.phone.light.composite.button.action.active:`, inspect(tokens.phone.light.composite.button.action.active));
+
+console.log(`tokens.phone.typography.ui:`, inspect(tokens.phone.typography.ui));
+
+console.log(`spread obj w/getters:`, {...tokens.phone.typography.ui.sm});
 
 // console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
 

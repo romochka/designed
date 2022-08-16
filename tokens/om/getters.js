@@ -9,7 +9,6 @@ import { isGetter, mo } from "./index.js";
 const getterDescriptors = [
    {
       key: "..", // modifies node endpoint key
-      fn: resolve,
       on: true,
    },
    /* {
@@ -36,30 +35,45 @@ const injectGetter = (node, endpointKey, getterDescriptor, root) => {
    let { key, fn } = getterDescriptor;
 
    if (key === "..") {
-      Object.defineProperty(
-         node,
-         `_${endpointKey}`,
-         Object.getOwnPropertyDescriptor(node, endpointKey)
-      );
-      delete node[endpointKey];
-      Object.defineProperty(node, endpointKey, {
+      Object.defineProperty(node, `_${endpointKey}`, {
          get() {
-            return fn(this[`_${endpointKey}`], root);
+            return node[endpointKey]
          },
       });
       return;
    }
 
-   const originKey = isGetter(node, endpointKey) ? `_${endpointKey}` : endpointKey;
-
    const getterKey = camelCase(`${endpointKey.replace(/^_/, "")} ${key}`);
 
    Object.defineProperty(node, getterKey, {
       get() {
-         return fn(this[originKey], root);
+         return fn(node[endpointKey], root);
       },
    });
 };
+
+const injectEndpointGetters = (node, endpointKeys, root) => {
+   endpointKeys.forEach(key => {
+      // console.log(`find getters for ${key}`);
+      const endpoint = node[key];
+      const gds = getGetterDescriptors(endpoint);
+      // console.log(`endpoint:`, endpointType(endpoint));
+      /* console.log(
+         `getters:`,
+         gds.map(g => g.key)
+      ); */
+      gds.forEach(gd => {
+         // console.log(`inject getter ${gd.key} into ${path} for ${key}`);
+         if (!root) {
+            throw `no root for ${path}`;
+            // console.log(`node:`, node);
+         }
+         injectGetter(node, key, gd, root);
+      });
+   });
+
+   return node;
+}
 
 export const injectGetters = node => mo(node, (node, path, root) => {
    // console.log(`check node`, path);
@@ -67,27 +81,8 @@ export const injectGetters = node => mo(node, (node, path, root) => {
    if (keys) {
       // console.log(`node ${path || "[root]"} with endpoints:`, inspect(node));
       // console.log(`${path} keys with endpoints:`, keys);
-
-      keys.forEach(key => {
-         // console.log(`find getters for ${key}`);
-         const endpoint = node[key];
-         const gds = getGetterDescriptors(endpoint);
-         // console.log(`endpoint:`, endpointType(endpoint));
-         /* console.log(
-            `getters:`,
-            gds.map(g => g.key)
-         ); */
-         gds.forEach(gd => {
-            // console.log(`inject getter ${gd.key} into ${path} for ${key}`);
-            if (!root) {
-               throw `no root for ${path}`;
-               // console.log(`node:`, node);
-            }
-            injectGetter(node, key, gd, root);
-         });
-      });
-
-      return node;
+      return injectEndpointGetters(node, keys, root);
    }
+
    return node;
 });

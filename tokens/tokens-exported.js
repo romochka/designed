@@ -3,7 +3,7 @@ export const tokens = {
     "coolGray": {
       "value": "#8F9397",
       "type": "color",
-      "description": "button surfac"
+      "description": "button surface"
     },
     "creamy": {
       "value": "#FBFAF5",
@@ -12,6 +12,12 @@ export const tokens = {
     "greenishBlack": {
       "value": "#12241F",
       "type": "color"
+    },
+    "test": {
+      "red": {
+        "value": "red",
+        "type": "color"
+      }
     }
   },
   "fontFamily": {
@@ -27,6 +33,42 @@ export const tokens = {
   "spacing": {
     "value": "8",
     "type": "spacing"
+  },
+  "letterSpacing": {
+    "test": {
+      "value": "16",
+      "type": "letterSpacing"
+    }
+  },
+  "size": {
+    "test": {
+      "a": {
+        "value": "14",
+        "type": "sizing"
+      },
+      "b": {
+        "value": "15",
+        "type": "sizing"
+      }
+    }
+  },
+  "lineHeight": {
+    "test": {
+      "value": "77",
+      "type": "lineHeights"
+    }
+  },
+  "borderRadius": {
+    "test": {
+      "value": "2",
+      "type": "borderRadius"
+    }
+  },
+  "borderWidth": {
+    "test": {
+      "value": "{size.test.a} {size.test.b}",
+      "type": "borderWidth"
+    }
   },
   "phone": {
     "borderRadius": {
@@ -122,13 +164,14 @@ export const tokens = {
               }
             ],
             "active": [
+              null,
               {
-                "borderRadius": {
-                  "value": "{phone.borderRadius.md}",
-                  "type": "borderRadius"
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
                 },
                 "fill": {
-                  "value": "{light.colors.button.action.active}",
+                  "value": "{color.creamy}",
                   "type": "fill"
                 }
               }
@@ -164,13 +207,14 @@ export const tokens = {
               }
             ],
             "active": [
+              null,
               {
-                "borderRadius": {
-                  "value": "{phone.borderRadius.md}",
-                  "type": "borderRadius"
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
                 },
                 "fill": {
-                  "value": "{light.colors.button.action.active}",
+                  "value": "{color.creamy}",
                   "type": "fill"
                 }
               }
@@ -236,13 +280,14 @@ export const tokens = {
               }
             ],
             "active": [
+              null,
               {
-                "borderRadius": {
-                  "value": "{phone.borderRadius.md}",
-                  "type": "borderRadius"
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
                 },
                 "fill": {
-                  "value": "{light.colors.button.action.active}",
+                  "value": "{color.creamy}",
                   "type": "fill"
                 }
               }
@@ -324,13 +369,14 @@ export const tokens = {
               }
             ],
             "active": [
+              null,
               {
-                "borderRadius": {
-                  "value": "{phone.borderRadius.md}",
-                  "type": "borderRadius"
+                "typography": {
+                  "value": "{phone.typography.ui.sm}",
+                  "type": "typography"
                 },
                 "fill": {
-                  "value": "{light.colors.button.action.active}",
+                  "value": "{color.creamy}",
                   "type": "fill"
                 }
               }
@@ -355,11 +401,6 @@ export const tokens = {
         }
       }
     }
-  },
-  "devicename": {
-    "value": "123",
-    "type": "other",
-    "description": "devicetype"
   },
   "dark": {
     "colors": {
