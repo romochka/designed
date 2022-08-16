@@ -1,7 +1,6 @@
 import { createTheme } from "@mui/material";
 
 export const theme = tokens => createTheme({
-   tokens,
    components: {
       // Name of the component
       MuiButtonBase: {
@@ -16,14 +15,17 @@ export const theme = tokens => createTheme({
                props: { variant: "action" },
                style: {
                   textTransform: "none",
-                  backgroundColor:
-                     tokens.composite.button.action.default[0].fill,
-                  color: tokens.composite.button.action.default[1].fill,
-                  ...tokens.composite.button.action.default[1].typography,
-                  padding: `${tokens.composite.button.action.default[0].verticalPadding}px ${tokens.composite.button.action.default[0].horizontalPadding}px`,
+                  ...tokens.composite.button.action.default[0], // container
+                  ...tokens.composite.button.action.default[1], // textnode
                   "&:hover": {
-                     backgroundColor: "red",
-                  }
+                     ...tokens.composite.button.action.hover[0]
+                  },
+                  "&:active": {
+                     ...tokens.composite.button.action.active[0]
+                  },
+                  "&:disabled": {
+                     ...tokens.composite.button.action.disabled[0]
+                  },
                },
             },
          ],

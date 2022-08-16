@@ -75,7 +75,7 @@ const obj = {
 
 // console.log(`spread obj w/getters:`, {...tokens.phone.typography.ui.sm});
 
-console.log(`tokens.phone:`, util.inspect(tokens.phone, { depth: 20 }));
+console.log(`tokens:`, util.inspect(tokens, { depth: 20, showHidden: false }));
 
 // const refString = tokens.phone.light.composite.button.action.default[0].borderRadius;
 
