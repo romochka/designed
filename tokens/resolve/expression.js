@@ -19,7 +19,7 @@ export const resolveExpression = (endpoint, root) => {
 
    const value = reduceCSSCalc(`calc(${arr.join("")})`);
 
-   console.log(value);
+   // console.log(value);
 
    return {...endpoint, value };
 };

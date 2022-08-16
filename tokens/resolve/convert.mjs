@@ -1,7 +1,7 @@
 const cssUnits = {
    px: [
       /^borderRad/, /^fontSiz/, /^lineH/, /^letterSpac/,
-      /^borderWidth/, /^padding/, /^margin/
+      /^borderWidth/, /padding/i, /^margin/
    ],
 };
 

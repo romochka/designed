@@ -20,6 +20,10 @@ export const theme = tokens => createTheme({
                      tokens.composite.button.action.default[0].fill,
                   color: tokens.composite.button.action.default[1].fill,
                   ...tokens.composite.button.action.default[1].typography,
+                  padding: `${tokens.composite.button.action.default[0].verticalPadding}px ${tokens.composite.button.action.default[0].horizontalPadding}px`,
+                  "&:hover": {
+                     backgroundColor: "red",
+                  }
                },
             },
          ],

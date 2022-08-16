@@ -27,10 +27,10 @@ export const resolve = (endpoint, root) => {
          return getEndpointCss({...endpoint, value }).value;
       }
       case "calc with refs": {
-         console.log(`resolve`, endpoint.type, ":", endpoint.value);
+         // console.log(`resolve`, endpoint.type, ":", endpoint.value);
          const resolvedEndpoint = resolveExpression(endpoint, root);
          const result = getEndpointCss(resolvedEndpoint).value;
-         console.log(result);
+         // console.log(result);
          return result;
       }
       case "just a value": {

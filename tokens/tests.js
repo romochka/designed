@@ -8,6 +8,7 @@ const inspect = node =>
 import { tokens } from "./tokens.js";
 import { injectGetters } from "./om/getters.js";
 import { resolveRefsInExpressionString } from "./resolve0/refs.js";
+import { stylize } from "./style/index.js";
 
 console.log(`%---------------------- RESTART -----------------------`);
 
@@ -66,20 +67,30 @@ const obj = {
 
 // console.clear();
 
-// console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
-
-console.log(`tokens.phone.light.composite.button.action:`, inspect(tokens.phone.light.composite.button.action));
+// console.log(`tokens.phone.light.composite.button.action:`, inspect(tokens.phone.light.composite.button.action));
 
 // console.log(`tokens.phone.light.composite.button.action.active:`, inspect(tokens.phone.light.composite.button.action.active));
 
-console.log(`tokens.phone.typography.ui:`, inspect(tokens.phone.typography.ui));
+// console.log(`tokens.phone.typography.ui:`, inspect(tokens.phone.typography.ui));
 
-console.log(`spread obj w/getters:`, {...tokens.phone.typography.ui.sm});
+// console.log(`spread obj w/getters:`, {...tokens.phone.typography.ui.sm});
 
-// console.log(`tokens.light.colors.button.action.default:`, inspect(tokens.light.colors.button.action));
+console.log(`tokens.phone:`, util.inspect(tokens.phone, { depth: 20 }));
 
 // const refString = tokens.phone.light.composite.button.action.default[0].borderRadius;
 
 // console.log(`ref string:`, refString);
 
 // console.log(`resolveRefExpressionString:`, resolveRefsInExpressionString(refString, tokens));
+
+/* const resolvedNode = {
+   fill: "red",
+   verticalPadding: "9px",
+   horizontalPadding: "16px",
+   paddingRight: "20px",
+   // fontSize: "12px",
+};
+
+const stylized = stylize(resolvedNode);
+
+console.log(inspect(stylized)); */
