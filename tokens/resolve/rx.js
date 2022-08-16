@@ -5,7 +5,7 @@ export const rx = {
       extract: /{([^}]+)}/g,
    },
    calc: {
-      has: /[^\+\-\/\*]+[\+\-\/\*]\s*(\d|var\(|\()/,
+      has: /[^\+\-\/\*\s]+\s*[\+\-\/\*]\s*[^\+\-\/\*\s]+/,
    },
 };
 
@@ -14,6 +14,6 @@ export const refpath = ref => {
    throw "refpath: not a ref";
 };
 
-export const splitRefs = str => {
-   return str.split(rx.ref.extract);
+export const splitByRefs = expression => {
+   return expression.split(/({[^}]+})/,).filter(s=>s);
 };

@@ -8,7 +8,7 @@ const cssUnits = {
 const getEndpointUnit = (endpoint) => {
    // const endpointType = endpoint.type || key;
    const unit = Object.keys(cssUnits).find(unit =>
-      cssUnits[unit].test(endpoint.type)
+      cssUnits[unit].some(rx => rx.test(endpoint.type))
    );
    return unit || "";
 };
@@ -28,11 +28,11 @@ const cssValues = {
 };
 
 const convertEndpoint = (endpoint) => {
-   console.log(`\n`, `convertEndpointValue: check ${endpoint.type}`, `\n`);
+   // console.log(`\n`, `convertEndpointValue: check ${endpoint.type}`, `\n`);
    const cssProperty = Object.keys(cssValues)
    .find(props => props.split(",").map(s=>s.trim()).includes(endpoint.type));
    if (cssProperty) {
-      console.log(`cssProperty:`, cssProperty);
+      // console.log(`cssProperty:`, cssProperty);
       const value = Object.keys(cssValues[cssProperty]).find(value => endpoint.value.toLowerCase().replace(/[\s-]/g, "") === value);
       
       if (value) return {...endpoint, value: cssValues[cssProperty][value] };
@@ -42,7 +42,7 @@ const convertEndpoint = (endpoint) => {
 
 export const getEndpointCss = (endpoint) => {
    // const endpointType = endpoint.type || key;
-   console.log(`\n`, `getEndpointCssValue: check ${endpoint.type}`, `\n`);
+   // console.log(`\n`, `getEndpointCssValue: check ${endpoint.type}`, `\n`);
    let value = endpoint.value;
    if (!isNaN(Number(value))) value += getEndpointUnit(endpoint);
    return convertEndpoint({...endpoint, value });

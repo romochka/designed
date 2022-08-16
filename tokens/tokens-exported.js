@@ -38,6 +38,10 @@ export const tokens = {
     "test": {
       "value": "16",
       "type": "letterSpacing"
+    },
+    "testExpression": {
+      "value": "{lineHeight.test}",
+      "type": "letterSpacing"
     }
   },
   "size": {
@@ -62,11 +66,19 @@ export const tokens = {
     "test": {
       "value": "2",
       "type": "borderRadius"
+    },
+    "testExpression": {
+      "value": "{lineHeight.test} * 2",
+      "type": "borderRadius"
     }
   },
   "borderWidth": {
     "test": {
       "value": "{size.test.a} {size.test.b}",
+      "type": "borderWidth"
+    },
+    "testExpression": {
+      "value": "{letterSpacing.testExpression} * {spacing}",
       "type": "borderWidth"
     }
   },

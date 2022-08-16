@@ -1,12 +1,12 @@
 import { mo } from "../om/index.js";
 import { hasRefs, isCalc, isEndpoint, isSingleRef } from "./endpoints.js";
 import { resolveRef } from "./ref.js";
+import { getEndpointCss } from "./convert.mjs";
+import { resolveExpression } from "./expression.js";
 
 export const resolve = (endpoint, root) => {
 
    if (!isEndpoint(endpoint)) throw "not an endpoint";
-
-   console.log(`resolve`, endpoint.type, ":", endpoint.value);
 
    const kind =
       isSingleRef(endpoint)
@@ -23,10 +23,18 @@ export const resolve = (endpoint, root) => {
 
    switch(kind) {
       case "one reference to one node": {
-         return resolveRef(endpoint.value, root)
+         const value = resolveRef(endpoint.value, root);
+         return getEndpointCss({...endpoint, value }).value;
+      }
+      case "calc with refs": {
+         console.log(`resolve`, endpoint.type, ":", endpoint.value);
+         const resolvedEndpoint = resolveExpression(endpoint, root);
+         const result = getEndpointCss(resolvedEndpoint).value;
+         console.log(result);
+         return result;
       }
       case "just a value": {
-         return endpoint.value;
+         return getEndpointCss(endpoint).value;
       }
       default: {
          return endpoint.value;

@@ -4,8 +4,9 @@ import { useTokens } from "../tokens";
 import { theme } from "./theme";
 
 export const ThemeProvider = ({ children }) => {
+   
    const tokens = useTokens();
-   console.log(tokens);
+   
    return (
       <TP theme={theme(tokens)}>
          <CssBaseline />

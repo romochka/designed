@@ -18,9 +18,9 @@ export const resolveRef = (ref, root) => {
 
    const node = findFinalNode(ref, root);
 
-   console.log(`\n----- resolve single ref ${ref} ------`);
-   console.log(`final node:`, node);
-   console.log(`----- resolved single ref ------\n`);
+   // console.log(`\n----- resolve single ref ${ref} ------`);
+   // console.log(`final node:`, node);
+   // console.log(`----- resolved single ref ------\n`);
 
    if (isEndpoint(node)) return node.value;
 

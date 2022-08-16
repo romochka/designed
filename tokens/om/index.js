@@ -6,6 +6,8 @@ export const ot = obj =>
       .exec(Object.prototype.toString.call(obj))[1]
       .toLowerCase();
 
+export const pt = obj => ["null", "undefined", "boolean", "number", "string"].includes(ot(obj));
+
 export const isGetter = (node, key) => {
    const descriptor = Object.getOwnPropertyDescriptor(node, key);
    return descriptor.get;
