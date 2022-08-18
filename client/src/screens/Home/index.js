@@ -1,7 +1,7 @@
-import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
 import { toXML } from "jstoxml";
 import { useTokens } from "../../providers/tokens";
+import Button from "../../components/ui/button";
 
 const Comp = () => {
 
@@ -57,7 +57,7 @@ export const Home = () => {
    // console.log(button);
 
    return (
-<Box p={10}>
+      <div style={{ padding: "40px" }}>
    
          <Button variant="action">
             Normal
@@ -67,6 +67,6 @@ export const Home = () => {
             Disabled
          </Button>
    
-</Box>
+      </div>
    )
 };

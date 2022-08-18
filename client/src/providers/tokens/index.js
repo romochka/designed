@@ -1,8 +1,9 @@
 import { createContext, useContext, useMemo } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { tokens as allTokens } from "@designed/tokens/tokens.js";
 import { get } from "lodash";
 import { getTokensByDeviceAndScheme } from "./tokens";
+import { useMediaQuery } from "react-responsive";
+import { cl } from "../../helpers";
 
 console.log(allTokens);
 
@@ -13,14 +14,19 @@ export const useTokens = path => {
    return path ? get(tokens, path) : tokens;
 };
 
+export const Tokens = Context.Consumer;
+
 export const TokensProvider = ({ children }) => {
-   const isTablet = useMediaQuery("(min-width: 1000px)");
-   const isDark = useMediaQuery("(prefers-color-scheme: dark)");
+   const isTablet = useMediaQuery({ query: "(min-width: 1000px)" });
+   const isDark = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
 
    const tokens = useMemo(() => {
-
+      
       const device = { phone: !isTablet, tablet: isTablet };
       const scheme = { light: !isDark, dark: isDark };
+
+      console.log(cl(device), cl(scheme));
+
       return getTokensByDeviceAndScheme(allTokens, device, scheme);
 
    }, [isTablet, isDark]);

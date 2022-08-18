@@ -115,3 +115,15 @@ const m =  merge(
 );
 
 console.log(m);
+
+const tabs = x => ({x});
+
+tabs`📱🔆`;
+
+const style = {
+   ...tabs`
+      button action
+   `
+}
+
+console.log(style);
