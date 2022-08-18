@@ -24,7 +24,8 @@ export const theme = tokens => createTheme({
                      ...tokens.composite.button.action.active[0]
                   },
                   "&:disabled": {
-                     ...tokens.composite.button.action.disabled[0]
+                     ...tokens.composite.button.action.disabled[0],
+                     ...tokens.composite.button.action.default[1]
                   },
                },
             },

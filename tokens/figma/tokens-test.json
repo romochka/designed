@@ -1,0 +1,80 @@
+{
+  "global": {
+    "spacing": {
+      "value": "8",
+      "type": "spacing"
+    },
+    "fontFamily": {
+      "sans": {
+        "value": "Inter",
+        "type": "fontFamilies"
+      }
+    }
+  },
+  "device": {
+    "typography": {
+      "ui": {
+        "label": {
+          "sm": {
+            "fontFamily": {
+              "value": "{fontFamily.sans}",
+              "type": "fontFamily"
+            },
+            "fontWeight": {
+              "value": "Regular",
+              "type": "fontWeight"
+            },
+            "lineHeight": {
+              "value": "100%",
+              "type": "lineHeight"
+            },
+            "fontSize": {
+              "value": "13",
+              "type": "fontSize"
+            }
+          }
+        }
+      }
+    },
+    "borderRadius": {
+      "xs": {
+        "value": "3",
+        "type": "borderRadius"
+      },
+      "sm": {
+        "value": "6",
+        "type": "borderRadius"
+      },
+      "md": {
+        "value": "9",
+        "type": "borderRadius"
+      },
+      "lg": {
+        "value": "18",
+        "type": "borderRadius"
+      }
+    }
+  },
+  "scheme": {
+    "colors": {
+      "paper": {
+        "default": {
+          "value": "#f6f6ef",
+          "type": "color"
+        }
+      },
+      "ink": {
+        "default": {
+          "value": "#283530",
+          "type": "color"
+        }
+      },
+      "surface": {
+        "default": {
+          "value": "#afb2b4",
+          "type": "color"
+        }
+      }
+    }
+  }
+}

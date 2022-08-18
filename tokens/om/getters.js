@@ -1,8 +1,7 @@
 
 import lodash from "lodash";
 import { hasEndpoints } from "../resolve/endpoints.js";
-import { resolve } from "../resolve/index.js";
-const { camelCase } = lodash;
+const { camelCase, cloneDeep } = lodash;
 import { isGetter, mo } from "./index.js";
 
 

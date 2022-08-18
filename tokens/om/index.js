@@ -1,5 +1,6 @@
 import lodash from "lodash";
 const { merge, has, set, get, cloneDeep } = lodash;
+// import { inspect } from "util";
 
 export const ot = obj =>
    /^\[object (\w+)]$/
@@ -7,6 +8,8 @@ export const ot = obj =>
       .toLowerCase();
 
 export const pt = obj => ["null", "undefined", "boolean", "number", "string"].includes(ot(obj));
+
+export const pipe = (...fns) => arg => fns.reduce((res, fn) => fn(res), arg);
 
 export const isGetter = (node, key) => {
    const descriptor = Object.getOwnPropertyDescriptor(node, key);
@@ -24,9 +27,10 @@ export const mergeKeys = (node, keys) => {
          return node;
       }
       const merged = merge(
+         cloneDeep(get(node, keys[index-1])),
          get(node, key),
-         get(node, keys[index-1])
       );
+      // console.log(`merge ${key}, ${keys[index-1]} :`, inspect(merged, { depth: 20 }));
       set(node, key, merged);
       return node;
    }, node);
@@ -129,3 +133,8 @@ export const so = (node, cond) => {
       [{}, {}]
    );
 };
+
+export const save$original = node => ({
+   ...node,
+   $: cloneDeep(node)
+});

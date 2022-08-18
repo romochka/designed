@@ -1,6 +1,6 @@
 import { isGetter, mo, ot } from "./om/index.js";
 import lodash from "lodash";
-const { camelCase } = lodash;
+const { camelCase, merge } = lodash;
 import util from "util";
 const inspect = node =>
    util.inspect(node, { showHidden: true, getters: true, depth: 25 });
@@ -94,3 +94,24 @@ console.log(`tokens:`, util.inspect(tokens, { depth: 20, showHidden: false }));
 const stylized = stylize(resolvedNode);
 
 console.log(inspect(stylized)); */
+
+const a = {
+   light: {
+      colors: {
+         paper: "gray",
+         ink: "dark"
+      }
+   },
+   dark: {
+      colors: {
+         ink: "light"
+      }
+   }
+};
+
+const m =  merge(
+   a.light,
+   a.dark
+);
+
+console.log(m);

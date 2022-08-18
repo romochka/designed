@@ -4,7 +4,7 @@ import { tokens as allTokens } from "@designed/tokens/tokens.js";
 import { get } from "lodash";
 import { getTokensByDeviceAndScheme } from "./tokens";
 
-// console.log(tokens);
+console.log(allTokens);
 
 const Context = createContext();
 

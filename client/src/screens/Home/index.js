@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
 import { toXML } from "jstoxml";
 import { useTokens } from "../../providers/tokens";
@@ -57,8 +57,16 @@ export const Home = () => {
    // console.log(button);
 
    return (
-      <Button variant="action">
-         Aa
-      </Button>
+<Box p={10}>
+   
+         <Button variant="action">
+            Normal
+         </Button>
+
+         <Button variant="action" disabled>
+            Disabled
+         </Button>
+   
+</Box>
    )
 };
