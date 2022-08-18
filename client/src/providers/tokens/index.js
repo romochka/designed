@@ -5,14 +5,30 @@ import { getTokensByDeviceAndScheme } from "./tokens";
 import { useMediaQuery } from "react-responsive";
 import { cl } from "../../helpers";
 
-console.log(allTokens);
+// console.log(allTokens);
 
 const Context = createContext();
 
-export const useTokens = path => {
+export const useTokens = (path, merge=true) => {
    const tokens = useContext(Context);
-   return path ? get(tokens, path) : tokens;
+   if (path) {
+      return Array.isArray(path)
+      ? merge
+         ? path.reduce((merged, p) => ({...merged, ...get(tokens, p) }), {})
+         : path.map(p => get(tokens, p))
+      : get (tokens, path);
+   }
+   return tokens;
 };
+
+export const withTokens = (Unstyled, style) => {
+   const Styled = ({ variant, ...props }) => {
+      const tokens = useTokens();
+      return <Unstyled {...props} className={style({ tokens, variant })} />
+   };
+   return Styled;
+};
+
 
 export const Tokens = Context.Consumer;
 

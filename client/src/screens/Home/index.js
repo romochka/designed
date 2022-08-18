@@ -59,11 +59,11 @@ export const Home = () => {
    return (
       <div style={{ padding: "40px" }}>
    
-         <Button variant="action">
+         <Button>
             Normal
          </Button>
 
-         <Button variant="action" disabled>
+         <Button disabled>
             Disabled
          </Button>
    

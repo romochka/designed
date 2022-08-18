@@ -1,17 +1,26 @@
 import ButtonUnstyled, { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
-import styled from "@emotion/styled";
-import { useTokens } from "../../providers/tokens";
+import { css } from "@emotion/css";
+import { withTokens } from "../../providers/tokens";
 
-const component = (unstyled, token) => styled(unstyled)(token);
-
-const Button = (props) => {
-   const tokens = useTokens();
-   const token = {
-      ...tokens.composite.button.action.default[0],
-      ...tokens.composite.button.action.default[1],
+const style = ({
+   tokens: { composite: { button } },
+   variant = "action",
+}) => css`
+   all: unset;
+   ${button[variant]?.default[0]};
+   ${button[variant]?.default[1]};
+   &:hover {
+      ${button[variant]?.hover[0]};
    }
-   const Component = component(ButtonUnstyled, token);
-   return <Component {...props } />
-}
+   &:active {
+      ${button[variant]?.active[0]};
+   }
+   &:disabled {
+      ${button[variant]?.disabled[0]};
+      ${button[variant]?.disabled[1]};
+   }
+`;
+
+const Button = withTokens(ButtonUnstyled, style);
 
 export default Button;
