@@ -1,9 +1,6 @@
 import { mo, ot } from "../../helpers";
-// import { cloneDeep } from "lodash";
 
 export const getTokensByMedia = (tokens, device, scheme, breakpoint) => {
-
-   // const clone = cloneDeep(tokens);
 
    const node = Object.entries(tokens).reduce((tokens, [key, node]) => {
       if (key in device) {
@@ -36,7 +33,7 @@ export const getTokensByMedia = (tokens, device, scheme, breakpoint) => {
                   /[^:]+:[^:]+/.test(child)
             )
          ) {
-            console.log(`node contains array of breakpoints`);
+            // console.log(`node contains array of breakpoints`);
             return (
                node.find(
                   child =>
@@ -47,5 +44,5 @@ export const getTokensByMedia = (tokens, device, scheme, breakpoint) => {
       }
       return node;
    });
-   
+
 };

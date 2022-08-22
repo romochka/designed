@@ -5,14 +5,14 @@ import { get } from "lodash";
 import { getTokensByMedia } from "./tokens";
 import { useMediaQuery } from "react-responsive";
 import { cl } from "../../helpers";
-import { useBreakpoint } from "./mq";
+import { useBreakpoint as useBreakpointName } from "./mq";
 
 // console.log(allTokens);
 
 const Context = createContext();
 
 export const useTokens = (path, merge=true) => {
-   const tokens = useContext(Context);
+   const { tokens } = useContext(Context);
    if (path) {
       return Array.isArray(path)
       ? merge
@@ -22,6 +22,21 @@ export const useTokens = (path, merge=true) => {
    }
    return tokens;
 };
+
+export const useBreakpoint = () => {
+   const { breakpoint } = useContext(Context);
+   return breakpoint;
+}
+
+export const useScheme = () => {
+   const { scheme } = useContext(Context);
+   return scheme;
+}
+
+export const useDevice = () => {
+   const { device } = useContext(Context);
+   return device;
+}
 
 export const withTokens = (Unstyled, style) => {
    const Styled = ({ variant, ...props }) => {
@@ -37,12 +52,12 @@ export const TokensProvider = ({ children }) => {
 
    // console.log(`breakpoints received:`, breakpoints);
 
-   const isTablet = useMediaQuery({ query: "(min-width: 1000px)" });
+   const isTablet = useMediaQuery({ query: "(min-width: 960px)" });
    const isDark = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
 
-   const breakpoint = useBreakpoint(breakpoints);
+   const breakpoint = useBreakpointName(breakpoints);
 
-   const tokens = useMemo(() => {
+   const everything = useMemo(() => {
 
       if (!breakpoint) return;
       
@@ -53,11 +68,15 @@ export const TokensProvider = ({ children }) => {
 
       console.log(`breakpoint name:`, breakpoint);
 
-      return getTokensByMedia(allTokens, device, scheme, breakpoint);
+      return {
+         tokens: getTokensByMedia(allTokens, device, scheme, breakpoint),
+         device: cl(device), scheme: cl(scheme),
+         breakpoint,
+      }
 
    }, [isTablet, isDark, breakpoint]);
 
    if (!breakpoint) return null;
 
-   return <Context.Provider value={tokens}>{children}</Context.Provider>;
+   return <Context.Provider value={everything}>{children}</Context.Provider>;
 };

@@ -1,10 +1,8 @@
-import { useTokens } from "../../providers/tokens";
+import { useDevice, useTokens } from "../../providers/tokens";
 
-const OuterBox = ({ children }) => {
+const Page = ({ children }) => {
 
    const weekColors = useTokens("colors.week");
-
-   console.log("week colors:", weekColors);
 
    const style = {
       display: "flex",
@@ -17,12 +15,33 @@ const OuterBox = ({ children }) => {
 
 };
 
+const NavBar = ({ children }) => {
+   const navbar = useTokens("composite.navbar");
+   const device = useDevice();
+
+   console.log(`navbar:`, navbar);
+
+   const style = device === "tablet"
+   ? {
+      ...navbar[0],
+      position: "fixed",
+      height: "100vh",
+      right: 0, top: 0,
+   }
+   : navbar[0];
+
+   return (
+      <div {...{ style }}>{ children }</div>
+   )
+}
+
 const Layout = ({ children }) => {
 
    return (
-      <OuterBox>
+      <Page>
+         <NavBar>N</NavBar>
          {children}
-      </OuterBox>
+      </Page>
    )
    
 };
