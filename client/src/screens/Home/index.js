@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { toXML } from "jstoxml";
 import { useTokens } from "../../providers/tokens";
 import Button from "../../components/ui/button";
+import Layout from "../../components/layout";
 
 const Comp = () => {
-
    const tokens = useTokens();
 
    useEffect(() => {
       console.log(`tokens:`, tokens.color);
-   }, [tokens])
+   }, [tokens]);
 
    useEffect(() => {
       const obj = {
@@ -18,9 +18,9 @@ const Comp = () => {
             instance: true,
          },
          _content: {
-            Layout: "some layout"
-         }
-      }
+            Layout: "some layout",
+         },
+      };
       const xml = toXML(obj, { indent: "  " });
 
       console.log(`xml:`, xml);
@@ -43,30 +43,17 @@ const Comp = () => {
       <div>
          <Button>Test</Button>
       </div>
-   )
+   );
 };
 
 export const Home = () => {
-
    const tokens = useTokens();
 
-   console.log(tokens.composite.button.action.default);
+   console.log(tokens.composite.navbar);
 
    // const button = useTokens(`phone.light.composite.button`);
 
    // console.log(button);
 
-   return (
-      <div style={{ padding: "40px" }}>
-   
-         <Button>
-            Normal
-         </Button>
-
-         <Button disabled>
-            Disabled
-         </Button>
-   
-      </div>
-   )
+   return <Layout>Home</Layout>;
 };

@@ -7,6 +7,10 @@ export const rx = {
    },
    expression: {
       pass: /[\+\-\/\*\(\{]/
+   },
+   breakpoint: {
+      pass: /\{breakpoints\.[^\}]+\}/,
+      extract: /\{breakpoints\.([^\}]+)\}/
    }
 };
 

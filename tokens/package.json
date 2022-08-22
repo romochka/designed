@@ -6,7 +6,8 @@
   "type": "module",
   "files": [
     "tokens.json",
-    "tokens.js"
+    "tokens.js",
+    "breakpoints.json"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

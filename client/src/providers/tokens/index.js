@@ -1,9 +1,11 @@
 import { createContext, useContext, useMemo } from "react";
 import { tokens as allTokens } from "@designed/tokens/tokens.js";
+import breakpoints from "@designed/tokens/breakpoints.json";
 import { get } from "lodash";
-import { getTokensByDeviceAndScheme } from "./tokens";
+import { getTokensByMedia } from "./tokens";
 import { useMediaQuery } from "react-responsive";
 import { cl } from "../../helpers";
+import { useBreakpoint } from "./mq";
 
 // console.log(allTokens);
 
@@ -29,23 +31,33 @@ export const withTokens = (Unstyled, style) => {
    return Styled;
 };
 
-
 export const Tokens = Context.Consumer;
 
 export const TokensProvider = ({ children }) => {
+
+   // console.log(`breakpoints received:`, breakpoints);
+
    const isTablet = useMediaQuery({ query: "(min-width: 1000px)" });
    const isDark = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
 
+   const breakpoint = useBreakpoint(breakpoints);
+
    const tokens = useMemo(() => {
+
+      if (!breakpoint) return;
       
       const device = { phone: !isTablet, tablet: isTablet };
       const scheme = { light: !isDark, dark: isDark };
 
       console.log(cl(device), cl(scheme));
 
-      return getTokensByDeviceAndScheme(allTokens, device, scheme);
+      console.log(`breakpoint name:`, breakpoint);
 
-   }, [isTablet, isDark]);
+      return getTokensByMedia(allTokens, device, scheme, breakpoint);
+
+   }, [isTablet, isDark, breakpoint]);
+
+   if (!breakpoint) return null;
 
    return <Context.Provider value={tokens}>{children}</Context.Provider>;
 };

@@ -2,10 +2,15 @@ import { ot } from "../om/index.js";
 import { resolveRef } from "./ref.js";
 import { splitByRefs, rx } from "./rx.js";
 import reduceCSSCalc from "reduce-css-calc";
+import { getBreakpointName, isBreakpointRef } from "../om/breakpoints.js";
 
 export const resolveExpression = (endpoint, root) => {
 
    const expression = endpoint.value;
+
+   // console.log(expression);
+
+   const bp = isBreakpointRef(expression) ? getBreakpointName(expression) + ":" : "";
 
    const arr = splitByRefs(expression).map(part => {
       if (!rx.ref.hasOnlySingle.test(part)) return part;
@@ -17,7 +22,7 @@ export const resolveExpression = (endpoint, root) => {
       return res;
    });
 
-   const value = reduceCSSCalc(`calc(${arr.join("")})`);
+   const value = bp + reduceCSSCalc(`calc(${arr.join("")})`);
 
    // console.log(value);
 

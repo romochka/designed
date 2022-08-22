@@ -1,5 +1,11 @@
-export const getTokensByDeviceAndScheme = (tokens, device, scheme) =>
-   Object.entries(tokens).reduce((tokens, [key, node]) => {
+import { mo, ot } from "../../helpers";
+// import { cloneDeep } from "lodash";
+
+export const getTokensByMedia = (tokens, device, scheme, breakpoint) => {
+
+   // const clone = cloneDeep(tokens);
+
+   const node = Object.entries(tokens).reduce((tokens, [key, node]) => {
       if (key in device) {
          return device[key]
             ? {
@@ -18,3 +24,28 @@ export const getTokensByDeviceAndScheme = (tokens, device, scheme) =>
       }
       return { ...tokens, [key]: node };
    }, {});
+
+
+   return mo(node, node => {
+      if (Array.isArray(node)) {
+         // console.log("node is array:", node);
+         if (
+            node.every(
+               child =>
+                  ot(child) === "string" &&
+                  /[^:]+:[^:]+/.test(child)
+            )
+         ) {
+            console.log(`node contains array of breakpoints`);
+            return (
+               node.find(
+                  child =>
+                     child.indexOf(`${breakpoint}:`) === 0
+               )?.split(":")[1] || node
+            );
+         }
+      }
+      return node;
+   });
+   
+};

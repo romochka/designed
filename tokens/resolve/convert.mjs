@@ -1,7 +1,7 @@
 const cssUnits = {
    px: [
       /^borderRad/, /^fontSiz/, /^lineH/, /^letterSpac/,
-      /^borderWidth/, /padding/i, /^margin/
+      /^borderWidth/, /padding/i, /^margin/, /^width/, /^height/, /^spacing/, /^sizing/
    ],
 };
 
@@ -43,7 +43,17 @@ const convertEndpoint = (endpoint) => {
 export const getEndpointCss = (endpoint) => {
    // const endpointType = endpoint.type || key;
    // console.log(`\n`, `getEndpointCssValue: check ${endpoint.type}`, `\n`);
-   let value = endpoint.value;
+   let breakpoint, value;
+   if (/[^:]+:[^:]+/.test(endpoint.value)) {
+      [breakpoint, value] = endpoint.value.split(":");
+   } else { value = endpoint.value }
+
+   if (/^["'][^"']+["']$/.test(value)) {
+      // quoted value -> return the same without quotes
+      return {...endpoint, value: value.replace(/["']/g, "") }
+   }
+
    if (!isNaN(Number(value))) value += getEndpointUnit(endpoint);
-   return convertEndpoint({...endpoint, value });
+   const converted = convertEndpoint({...endpoint, value });
+   return breakpoint ? {...converted, value: breakpoint + ":" + value } : converted;
 }

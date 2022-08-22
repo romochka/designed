@@ -18,5 +18,5 @@ export const hasRefs = endpoint => rx.ref.has.test(endpoint.value);
 
 export const isCalc = endpoint => rx.calc.has.test(endpoint.value);
 
-export const isSingleRef = endpoint => rx.ref.hasOnlySingle.test(endpoint.value.trim());
+export const isSingleRef = endpoint => ot(endpoint.value)==="string" && rx.ref.hasOnlySingle.test(endpoint.value.trim());
 

@@ -109,6 +109,22 @@ export const mo = (node, updater, path, root) => {
    }
 };
 
+export const findPrev = (arr, index, cond) => {
+   if (index === 0) return undefined;
+   for (let i=index-1; i>=0; i--) {
+      if (cond(arr[i])) return arr[i];
+   }
+   return undefined;
+};
+
+export const findNext = (arr, index, cond) => {
+   if (index === arr.length-1) return undefined;
+   for (let i=index; i<arr.length; i++) {
+      if (cond(arr[i])) return arr[i];
+   }
+   return undefined;
+}
+
 
 export const oa = (node, mutate) => {
    if (ot(node) === "array") return node.map(n => mutate(n));

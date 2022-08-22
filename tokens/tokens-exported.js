@@ -98,6 +98,42 @@ export const tokens = {
       }
     }
   },
+  "breakpoints": {
+    "xs": {
+      "value": 4,
+      "type": "unit"
+    },
+    "sm": {
+      "value": 6,
+      "type": "unit"
+    },
+    "md": {
+      "value": 8,
+      "type": "unit"
+    },
+    "lg": {
+      "value": 8,
+      "type": "unit"
+    },
+    "xl": {
+      "value": 12,
+      "type": "unit"
+    },
+    "xxl": {
+      "value": 12,
+      "type": "unit"
+    }
+  },
+  "breakpoint": {
+    "phone": {
+      "value": "6",
+      "type": "sizing"
+    },
+    "tablet": {
+      "value": "8",
+      "type": "sizing"
+    }
+  },
   "phone": {
     "borderRadius": {
       "xs": {
@@ -165,10 +201,12 @@ export const tokens = {
         }
       }
     },
-    "spacing": {
-      "value": "{spacing}",
-      "type": "spacing"
-    },
+    "spacing": [
+      {
+        "value": "{spacing}",
+        "type": "spacing"
+      }
+    ],
     "light": {
       "composite": {
         "button": {
@@ -184,7 +222,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -214,7 +252,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -234,7 +272,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -254,7 +292,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -264,7 +302,15 @@ export const tokens = {
               }
             ]
           }
-        }
+        },
+        "navbar": [
+          {
+            "fill": {
+              "value": "{light.colors.week.5}",
+              "type": "fill"
+            }
+          }
+        ]
       }
     },
     "dark": {
@@ -282,7 +328,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -312,7 +358,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -332,7 +378,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -352,7 +398,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -376,7 +422,15 @@ export const tokens = {
               }
             ]
           }
-        }
+        },
+        "navbar": [
+          {
+            "fill": {
+              "value": "{light.colors.week.5}",
+              "type": "fill"
+            }
+          }
+        ]
       }
     }
   },
@@ -447,10 +501,12 @@ export const tokens = {
         }
       }
     },
-    "spacing": {
-      "value": "{spacing}",
-      "type": "spacing"
-    },
+    "spacing": [
+      {
+        "value": "{spacing}",
+        "type": "spacing"
+      }
+    ],
     "light": {
       "composite": {
         "button": {
@@ -466,7 +522,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -496,7 +552,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -516,7 +572,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -536,7 +592,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -546,7 +602,41 @@ export const tokens = {
               }
             ]
           }
-        }
+        },
+        "navbar": [
+          {
+            "fill": {
+              "value": "{light.colors.week.5}",
+              "type": "fill"
+            },
+            "width": [
+              {
+                "value": "{breakpoints.xs} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.sm} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.md} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.lg} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.xl} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.xxl} * 6",
+                "type": "sizing"
+              }
+            ]
+          }
+        ]
       }
     },
     "dark": {
@@ -564,7 +654,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -594,7 +684,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -614,7 +704,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -634,7 +724,7 @@ export const tokens = {
                   "type": "fill"
                 },
                 "horizontalPadding": {
-                  "value": "{phone.spacing} * 2",
+                  "value": "{phone.spacing.0} * 2",
                   "type": "spacing"
                 },
                 "verticalPadding": {
@@ -658,7 +748,41 @@ export const tokens = {
               }
             ]
           }
-        }
+        },
+        "navbar": [
+          {
+            "fill": {
+              "value": "{light.colors.week.5}",
+              "type": "fill"
+            },
+            "width": [
+              {
+                "value": "{breakpoints.xs} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.sm} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.md} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.lg} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.xl} * 6",
+                "type": "sizing"
+              },
+              {
+                "value": "{breakpoints.xxl} * 6",
+                "type": "sizing"
+              }
+            ]
+          }
+        ]
       }
     }
   },
@@ -692,8 +816,65 @@ export const tokens = {
         "normal": {
           "value": "{color.creamy}",
           "type": "color"
+        },
+        "tinted": {
+          "value": "#EFECE9",
+          "type": "color"
         }
-      }
+      },
+      "story": {
+        "accent": [
+          {
+            "value": "#292929",
+            "type": "color"
+          },
+          {
+            "value": "#BC2A44",
+            "type": "color"
+          },
+          {
+            "value": "#2E3F5A",
+            "type": "color"
+          }
+        ]
+      },
+      "week": [
+        {
+          "value": "#693a5a",
+          "type": "color",
+          "description": "sunday"
+        },
+        {
+          "value": "#823f49",
+          "type": "color",
+          "description": "monday"
+        },
+        {
+          "value": "#6f5438",
+          "type": "color",
+          "description": "tuesday"
+        },
+        {
+          "value": "#5f5a36",
+          "type": "color",
+          "description": "wednesday"
+        },
+        {
+          "value": "#42673c",
+          "type": "color",
+          "description": "thursday"
+        },
+        {
+          "value": "#486575",
+          "type": "color",
+          "description": "friday"
+        },
+        {
+          "value": "#58658c",
+          "type": "color",
+          "description": "saturday"
+        }
+      ]
     }
   },
   "dark": {
@@ -726,8 +907,71 @@ export const tokens = {
         "normal": {
           "value": "#3c3f3d",
           "type": "color"
+        },
+        "tinted": {
+          "value": "#EFECE9",
+          "type": "color"
         }
-      }
+      },
+      "story": {
+        "accent": [
+          {
+            "value": "#292929",
+            "type": "color"
+          },
+          {
+            "value": "#BC2A44",
+            "type": "color"
+          },
+          {
+            "value": "#2E3F5A",
+            "type": "color"
+          }
+        ]
+      },
+      "week": [
+        {
+          "value": "#ab31c2",
+          "type": "color",
+          "description": "sunday"
+        },
+        {
+          "value": "#c0653f",
+          "type": "color",
+          "description": "monday"
+        },
+        {
+          "value": "#6f5438",
+          "type": "color",
+          "description": "tuesday"
+        },
+        {
+          "value": "#5f5a36",
+          "type": "color",
+          "description": "wednesday"
+        },
+        {
+          "value": "#42673c",
+          "type": "color",
+          "description": "thursday"
+        },
+        {
+          "value": "#486575",
+          "type": "color",
+          "description": "friday"
+        },
+        {
+          "value": "#58658c",
+          "type": "color",
+          "description": "saturday"
+        }
+      ]
     }
-  }
+  },
+  "tokenSetOrder": [
+    "base",
+    "device",
+    "scheme",
+    "composites"
+  ]
 }

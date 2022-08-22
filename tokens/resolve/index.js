@@ -3,6 +3,7 @@ import { hasRefs, isCalc, isEndpoint, isSingleRef } from "./endpoints.js";
 import { resolveRef } from "./ref.js";
 import { getEndpointCss } from "./convert.mjs";
 import { resolveExpression } from "./expression.js";
+import { getBreakpointName, isBreakpointRef } from "../om/breakpoints.js";
 
 export const resolve = (endpoint, root) => {
 
@@ -23,12 +24,14 @@ export const resolve = (endpoint, root) => {
 
    switch(kind) {
       case "one reference to one node": {
-         const value = resolveRef(endpoint.value, root);
+         const bp = isBreakpointRef(endpoint.value) ? getBreakpointName(endpoint.value) + ":" : "";
+         const value = bp + resolveRef(endpoint.value, root);
          return getEndpointCss({...endpoint, value }).value;
       }
       case "calc with refs": {
          // console.log(`resolve`, endpoint.type, ":", endpoint.value);
          const resolvedEndpoint = resolveExpression(endpoint, root);
+         // console.log(resolvedEndpoint);
          const result = getEndpointCss(resolvedEndpoint).value;
          // console.log(result);
          return result;
