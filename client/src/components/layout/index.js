@@ -1,7 +1,6 @@
 import { useDevice, useTokens } from "../../providers/tokens";
 
-const Page = ({ children }) => {
-
+const ScreenBox = ({ children }) => {
    const weekColors = useTokens("colors.week");
 
    const style = {
@@ -11,39 +10,81 @@ const Page = ({ children }) => {
       height: "100%",
       backgroundColor: weekColors[new Date().getDay()],
    };
-   return <div {...{style}}>{ children }</div>
-
+   return <div {...{ style }}>{children}</div>;
 };
 
-const NavBar = ({ children }) => {
-   const navbar = useTokens("composite.navbar");
+const NavBox = ({ children, contentDependentStyle }) => {
+   const token = useTokens("composite.NavBox");
    const device = useDevice();
 
-   console.log(`navbar:`, navbar);
+   const style =
+      device === "tablet"
+         ? {
+              ...token[0],
+              position: "fixed",
+              height: "100vh",
+              right: 0,
+              top: 0,
+           }
+         : {
+            ...token[0],
+            ...contentDependentStyle, // on a phone, NavBox changes
+         };
 
-   const style = device === "tablet"
-   ? {
-      ...navbar[0],
-      position: "fixed",
-      height: "100vh",
-      right: 0, top: 0,
+   return <div {...{ style }}>{children}</div>;
+};
+
+const MainBox = ({ children }) => {
+
+   const style = {
+      flexGrow: 1,
    }
-   : navbar[0];
+
+   return <div {...{ style }}>{children}</div>;
+};
+
+const Footer = () => {
 
    return (
-      <div {...{ style }}>{ children }</div>
+      <div>footer</div>
    )
-}
+};
 
-const Layout = ({ children }) => {
+const PageBox = ({ children, contentDependentStyle }) => {
+   const tokens = useTokens();
+   const device = useDevice();
+
+   const deviceDependentStyle =
+      device === "tablet"
+      ? { paddingRight: tokens.composite.NavBox[0].width }
+      : {};
+
+   const style = {
+      display: "flex",
+      flexDirection: "column",
+      flexGrow: 1,
+      ...deviceDependentStyle,
+      ...contentDependentStyle,
+   };
+
+   // console.log(`pagebox style:`, style);
+
+   return <div {...{ style }}>{children}</div>;
+};
+
+const Layout = ({ children, contentDependentStyle }) => {
+
+   // contentDependentStyle is for Story backgroundColor for now
 
    return (
-      <Page>
-         <NavBar>N</NavBar>
-         {children}
-      </Page>
-   )
-   
+      <ScreenBox>
+         <NavBox {...{contentDependentStyle}}>N</NavBox>
+         <PageBox {...{contentDependentStyle}}>
+            <MainBox>{children}</MainBox>
+            <Footer />
+         </PageBox>
+      </ScreenBox>
+   );
 };
 
 export default Layout;

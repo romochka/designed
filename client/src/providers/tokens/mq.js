@@ -28,6 +28,11 @@ export const useBreakpoint = breakpoints => {
          reduce(mql.matches, name);
          mql.addEventListener("change", event => reduce(event.matches, name));
       });
+
+      /* return () => {
+         console.log(`useBreakpoint unmount: should I remove event listeners?`);
+      }; */
+
    }, [breakpoints, reduce]);
 
    return (

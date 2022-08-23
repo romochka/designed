@@ -24,8 +24,9 @@ export const resolve = (endpoint, root) => {
 
    switch(kind) {
       case "one reference to one node": {
-         const bp = isBreakpointRef(endpoint.value) ? getBreakpointName(endpoint.value) + ":" : "";
-         const value = bp + resolveRef(endpoint.value, root);
+         const bp = isBreakpointRef(endpoint.value) && getBreakpointName(endpoint.value);
+         const resolved = resolveRef(endpoint.value, root);
+         const value = bp ? `${bp}:${resolved}` : resolved;
          return getEndpointCss({...endpoint, value }).value;
       }
       case "calc with refs": {

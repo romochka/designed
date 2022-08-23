@@ -1,23 +1,23 @@
 import { mo, ot } from "../../helpers";
 
-export const getTokensByMedia = (tokens, device, scheme, breakpoint) => {
+export const getTokensByMedia = (tokens, devices, schemes, breakpoint) => {
 
    const node = Object.entries(tokens).reduce((tokens, [key, node]) => {
-      if (key in device) {
-         return device[key]
+      if (key in devices) {
+         return devices[key]
             ? {
                  ...tokens,
                  ...Object.entries(node).reduce((node, [key, child]) => {
-                    if (key in scheme) {
-                       return scheme[key] ? { ...node, ...child } : node;
+                    if (key in schemes) {
+                       return schemes[key] ? { ...node, ...child } : node;
                     }
                     return { ...node, [key]: child };
                  }, {}),
               }
             : tokens;
       }
-      if (key in scheme) {
-         return scheme[key] ? { ...tokens, ...node } : tokens;
+      if (key in schemes) {
+         return schemes[key] ? { ...tokens, ...node } : tokens;
       }
       return { ...tokens, [key]: node };
    }, {});

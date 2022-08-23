@@ -1,4 +1,4 @@
-export const tokens = {
+{
   "color": {
     "coolGray": {
       "value": "#8F9397",
@@ -303,7 +303,7 @@ export const tokens = {
             ]
           }
         },
-        "navbar": [
+        "NavBox": [
           {
             "fill": {
               "value": "{light.colors.week.5}",
@@ -423,7 +423,7 @@ export const tokens = {
             ]
           }
         },
-        "navbar": [
+        "NavBox": [
           {
             "fill": {
               "value": "{light.colors.week.5}",
@@ -603,7 +603,7 @@ export const tokens = {
             ]
           }
         },
-        "navbar": [
+        "NavBox": [
           {
             "fill": {
               "value": "{light.colors.week.5}",
@@ -749,7 +749,7 @@ export const tokens = {
             ]
           }
         },
-        "navbar": [
+        "NavBox": [
           {
             "fill": {
               "value": "{light.colors.week.5}",
@@ -941,7 +941,7 @@ export const tokens = {
           "description": "monday"
         },
         {
-          "value": "#6f5438",
+          "value": "#ce1d6f",
           "type": "color",
           "description": "tuesday"
         },

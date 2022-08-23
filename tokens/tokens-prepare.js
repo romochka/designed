@@ -11,12 +11,12 @@ const rawTokens = await readFile("./figma/tokens.json", { encoding: "utf-8" })
    .then(node => om(node, breakpoints));
 
 const json = JSON.stringify(rawTokens, null, 2);
-const js = "export const tokens = " + json;
+// const js = "export const tokens = " + json;
 
-writeFile("./tokens.json", json).then(() => {
+writeFile("./tokens-prepared.json", json).then(() => {
    console.log(`json flushed`);
 });
 
-writeFile("./tokens-exported.js", js).then(() => {
+/* writeFile("./tokens-exported.js", js).then(() => {
    console.log(`js flushed`);
-});
+}); */

@@ -1,10 +1,10 @@
-import { createContext, useContext, useMemo } from "react";
-import { tokens as allTokens } from "@designed/tokens/tokens.js";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import allTokens from "@designed/tokens/tokens.json";
 import breakpoints from "@designed/tokens/breakpoints.json";
 import { get } from "lodash";
 import { getTokensByMedia } from "./tokens";
 import { useMediaQuery } from "react-responsive";
-import { cl } from "../../helpers";
+import { cl, usePrevious } from "../../helpers";
 import { useBreakpoint as useBreakpointName } from "./mq";
 
 // console.log(allTokens);
@@ -56,27 +56,34 @@ export const TokensProvider = ({ children }) => {
    const isDark = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
 
    const breakpoint = useBreakpointName(breakpoints);
+   const prevBreakpoint = usePrevious(breakpoint);
 
-   const everything = useMemo(() => {
+   const [tokens, setTokens] = useState();
 
-      if (!breakpoint) return;
-      
-      const device = { phone: !isTablet, tablet: isTablet };
-      const scheme = { light: !isDark, dark: isDark };
+   const media = useMemo(() => {
 
-      console.log(cl(device), cl(scheme));
+      const devices = { phone: !isTablet, tablet: isTablet };
+      const schemes = { light: !isDark, dark: isDark };
 
-      console.log(`breakpoint name:`, breakpoint);
+      const device = cl(devices);
+      const scheme = cl(schemes);
+
+      console.log(device, scheme);
+      // console.log(`breakpoint name:`, breakpoint);
 
       return {
-         tokens: getTokensByMedia(allTokens, device, scheme, breakpoint),
-         device: cl(device), scheme: cl(scheme),
-         breakpoint,
+         devices, schemes,
+         device, scheme,
       }
 
-   }, [isTablet, isDark, breakpoint]);
+   }, [isTablet, isDark]);
 
-   if (!breakpoint) return null;
+   useEffect(() => {
+      if (!breakpoint || breakpoint===prevBreakpoint) return;
+      setTokens(getTokensByMedia(allTokens, media.devices, media.schemes, breakpoint));
+   }, [media.devices, media.schemes, breakpoint, prevBreakpoint]);
 
-   return <Context.Provider value={everything}>{children}</Context.Provider>;
+   if (!tokens) return null;
+
+   return <Context.Provider value={{ tokens, breakpoint, device: media.device, scheme: media.scheme }}>{children}</Context.Provider>;
 };

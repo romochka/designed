@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 export const ot = obj =>
    /^\[object (\w+)]$/
       .exec(Object.prototype.toString.call(obj))[1]
@@ -6,13 +8,15 @@ export const ot = obj =>
 export function cl() {
    const classList = Array.prototype.slice
       .call(arguments)
-      .filter((c) => c)
-      .map((c) => {
+      .filter(c => c)
+      .map(c => {
          if (ot(c) === "object") {
-            return Object.keys(c)
-               // .map((key) => (c[key] === true ? key : false))
-               .map((key) => (!!c[key] ? key : false))
-               .filter((c) => c);
+            return (
+               Object.keys(c)
+                  // .map((key) => (c[key] === true ? key : false))
+                  .map(key => (!!c[key] ? key : false))
+                  .filter(c => c)
+            );
          }
          return c;
       })
@@ -20,28 +24,37 @@ export function cl() {
 
    // console.log(classList);
 
-   return classList.length > 0 ? classList.filter((c) => c).join(" ") : null;
+   return classList.length > 0 ? classList.filter(c => c).join(" ") : null;
 }
 
+export const usePrevious = value => {
+   const ref = useRef();
+   useEffect(() => {
+      ref.current = value;
+   }, [value]);
+   return ref.current;
+};
+
 const merge2 = (obj1, obj2) => {
-   const merged = Object.defineProperties(obj1, Object.getOwnPropertyDescriptors(obj2));
+   const merged = Object.defineProperties(
+      obj1,
+      Object.getOwnPropertyDescriptors(obj2)
+   );
    return merged;
-}
+};
 
 export const isGetter = (node, key) => {
    const descriptor = Object.getOwnPropertyDescriptor(node, key);
    return descriptor.get;
 };
 
-
 export const mo = (node, updater, path, root) => {
-
    // throw new Error();
    const realroot = root || node;
    if (!realroot) throw new Error();
 
    if (ot(node) === "array") {
-      const arr = node.map((item) => mo(item, updater, path, root || node));
+      const arr = node.map(item => mo(item, updater, path, root || node));
       return updater(arr, path, root || node);
    }
 
@@ -50,7 +63,11 @@ export const mo = (node, updater, path, root) => {
          // console.log(`checking key ${key}`);
          if (isGetter(node, key)) {
             // console.log(`${key} is a getter`);
-            Object.defineProperty(acc, key, Object.getOwnPropertyDescriptor(node, key));
+            Object.defineProperty(
+               acc,
+               key,
+               Object.getOwnPropertyDescriptor(node, key)
+            );
             return acc;
          }
          const mutated = mo(
