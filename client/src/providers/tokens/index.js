@@ -11,14 +11,14 @@ import { useBreakpoint as useBreakpointName } from "./mq";
 
 const Context = createContext();
 
-export const useTokens = (path, merge=true) => {
+export const useTokens = (path, merge) => {
    const { tokens } = useContext(Context);
    if (path) {
       return Array.isArray(path)
-      ? merge
-         ? path.reduce((merged, p) => ({...merged, ...get(tokens, p) }), {})
-         : path.map(p => get(tokens, p))
-      : get (tokens, path);
+         ? merge
+            ? path.reduce((merged, p) => ({ ...merged, ...get(tokens, p) }), {})
+            : path.map(p => get(tokens, p))
+         : get(tokens, path);
    }
    return tokens;
 };
@@ -26,22 +26,27 @@ export const useTokens = (path, merge=true) => {
 export const useBreakpoint = () => {
    const { breakpoint } = useContext(Context);
    return breakpoint;
-}
+};
 
 export const useScheme = () => {
    const { scheme } = useContext(Context);
    return scheme;
-}
+};
 
 export const useDevice = () => {
    const { device } = useContext(Context);
    return device;
+};
+
+export const useTokensAndMedia = () => {
+   return useContext(Context);
 }
 
 export const withTokens = (Unstyled, style) => {
    const Styled = ({ variant, ...props }) => {
       const tokens = useTokens();
-      return <Unstyled {...props} className={style({ tokens, variant })} />
+      console.log(style({ tokens, variant }));
+      return <Unstyled {...props} className={style({ tokens, variant })} />;
    };
    return Styled;
 };
@@ -49,7 +54,6 @@ export const withTokens = (Unstyled, style) => {
 export const Tokens = Context.Consumer;
 
 export const TokensProvider = ({ children }) => {
-
    // console.log(`breakpoints received:`, breakpoints);
 
    const isTablet = useMediaQuery({ query: "(min-width: 960px)" });
@@ -61,7 +65,6 @@ export const TokensProvider = ({ children }) => {
    const [tokens, setTokens] = useState();
 
    const media = useMemo(() => {
-
       const devices = { phone: !isTablet, tablet: isTablet };
       const schemes = { light: !isDark, dark: isDark };
 
@@ -69,21 +72,36 @@ export const TokensProvider = ({ children }) => {
       const scheme = cl(schemes);
 
       console.log(device, scheme);
-      // console.log(`breakpoint name:`, breakpoint);
+      // console.log(`breakpoint:`, breakpoint);
 
       return {
-         devices, schemes,
-         device, scheme,
-      }
-
+         devices,
+         schemes,
+         device,
+         scheme,
+      };
    }, [isTablet, isDark]);
 
    useEffect(() => {
-      if (!breakpoint || breakpoint===prevBreakpoint) return;
-      setTokens(getTokensByMedia(allTokens, media.devices, media.schemes, breakpoint));
+      if (!breakpoint || breakpoint === prevBreakpoint) return;
+      console.log(`recalc tokens`);
+      setTokens(
+         getTokensByMedia(allTokens, media.devices, media.schemes, breakpoint)
+      );
    }, [media.devices, media.schemes, breakpoint, prevBreakpoint]);
 
    if (!tokens) return null;
 
-   return <Context.Provider value={{ tokens, breakpoint, device: media.device, scheme: media.scheme }}>{children}</Context.Provider>;
+   return (
+      <Context.Provider
+         value={{
+            tokens,
+            breakpoint,
+            device: media.device,
+            scheme: media.scheme,
+         }}
+      >
+         {children}
+      </Context.Provider>
+   );
 };
